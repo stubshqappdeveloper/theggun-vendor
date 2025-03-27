@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley_vendor_app/utill/dimensions.dart';
 import 'package:sixvalley_vendor_app/utill/styles.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfPreview extends StatefulWidget {
   final String url;
@@ -13,7 +13,7 @@ class PdfPreview extends StatefulWidget {
 }
 
 class _PdfPreviewState extends State<PdfPreview> {
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+  // final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
 
   @override
@@ -49,12 +49,12 @@ class _PdfPreviewState extends State<PdfPreview> {
           ),
           const SizedBox(height: Dimensions.paddingSizeDefault),
 
-          Expanded(
-            child: SfPdfViewer.network(
-              widget.url,
-              key: _pdfViewerKey,
-            ),
-          )
+          // Expanded(
+          //   child: SfPdfViewer.network(
+          //     widget.url,
+          //     key: _pdfViewerKey,
+          //   ),
+          // )
         ],
       ),
     );

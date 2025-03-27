@@ -31,7 +31,8 @@ class _ProductReviewScreenState extends State<ProductReviewScreen> {
   void initState() {
     Provider.of<CartController>(context, listen: false).getCustomerList('');
     Provider.of<ProductController>(context, listen: false).getSellerProductList(Provider.of<ProfileController>(context, listen: false).
-    userInfoModel!.id.toString(), 1, 'en','', reload: true);
+    userInfoModel!.id.toString(), 1, 'ko','', reload: true);
+    // userInfoModel!.id.toString(), 1, 'en','', reload: true);
     super.initState();
   }
   TextEditingController searchController = TextEditingController();

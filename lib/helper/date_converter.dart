@@ -19,11 +19,13 @@ class DateConverter {
   }
 
   static String dateTimeStringToDateTime(String dateTime) {
-    return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    // return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    return DateFormat('yyyy-MM-dd  ${_timeFormatter()}').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
   }
 
   static String dateTimeStringToDateOnly(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    return DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    // return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
   }
 
   static DateTime dateTimeStringToDate(String dateTime) {
@@ -39,7 +41,8 @@ class DateConverter {
   }
 
   static String isoStringToDateTimeString(String dateTime) {
-    return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(isoStringToLocalDate(dateTime));
+    return DateFormat('yyyy-MM-dd  ${_timeFormatter()}').format(isoStringToLocalDate(dateTime));
+    // return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(isoStringToLocalDate(dateTime));
   }
 
   static String convertStringTimeToDateChatting(DateTime time) {
@@ -47,11 +50,13 @@ class DateConverter {
   }
 
   static String isoStringToLocalDateOnly(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(isoStringToLocalDate(dateTime));
+    return DateFormat('yyyy-MM-dd').format(isoStringToLocalDate(dateTime));
+    // return DateFormat('dd MMM yyyy').format(isoStringToLocalDate(dateTime));
   }
 
   static String stringToLocalDateOnly(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd').parse(dateTime));
+    return DateFormat('yyyy-MM-dd').format(DateFormat('yyyy-MM-dd').parse(dateTime));
+    // return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd').parse(dateTime));
   }
 
   static String localDateToIsoString(DateTime dateTime) {
@@ -67,7 +72,8 @@ class DateConverter {
   }
 
   static String dateTimeStringToMonthAndTime(String dateTime) {
-    return DateFormat('dd MMM yyyy HH:mm').format(isoStringToLocalDate(dateTime));
+    return DateFormat('yyyy-MM-dd HH:mm').format(isoStringToLocalDate(dateTime));
+    // return DateFormat('dd MMM yyyy HH:mm').format(isoStringToLocalDate(dateTime));
   }
 
 
@@ -77,18 +83,22 @@ class DateConverter {
 
 
   static String localDateToIsoStringAMPM(DateTime dateTime) {
-    return DateFormat('d MMM, yyyy ${_timeFormatter()}').format(dateTime.toLocal());
+    return DateFormat('yyyy-MM-dd ${_timeFormatter()}').format(dateTime.toLocal());
+    // return DateFormat('d MMM, yyyy ${_timeFormatter()}').format(dateTime.toLocal());
   }
 
   static String reviewDate(DateTime dateTime) {
-    return DateFormat('dd MMM, yyyy ${_timeFormatter()}').format(dateTime.toLocal());
+    return DateFormat('yyyy-MM-dd ${_timeFormatter()}').format(dateTime.toLocal());
+    // return DateFormat('dd MMM, yyyy ${_timeFormatter()}').format(dateTime.toLocal());
   }
 
   static String localDateToIsoStringDate(DateTime dateTime) {
-    return DateFormat('d MMM, yyyy').format(dateTime.toLocal());
+    return DateFormat('yyyy-MM-dd').format(dateTime.toLocal());
+    // return DateFormat('d MMM, yyyy').format(dateTime.toLocal());
   }
   static String localToIsoString(DateTime dateTime) {
-    return DateFormat('d MMMM, yyyy ').format(dateTime.toLocal());
+    return DateFormat('yyyy-MM-dd ').format(dateTime.toLocal());
+    // return DateFormat('d MMMM, yyyy ').format(dateTime.toLocal());
   }
 
   static int getMonthIndex(String date) {
@@ -103,11 +113,13 @@ class DateConverter {
   }
 
   static String isoStringToLocalDateAndTime(String dateTime) {
-    return DateFormat('dd-MMM-yyyy hh:mm a').format(isoStringToLocalDate(dateTime));
+    return DateFormat('yyyy-MM-dd hh:mm a').format(isoStringToLocalDate(dateTime));
+    // return DateFormat('dd-MMM-yyyy hh:mm a').format(isoStringToLocalDate(dateTime));
   }
 
   static String dateStringMonthYear(DateTime ? dateTime) {
-    return DateFormat('d MMM,y').format(dateTime!);
+    return DateFormat('yyyy-MM-dd').format(dateTime!);
+    // return DateFormat('d MMM,y').format(dateTime!);
   }
 
   static String convert24HourTimeTo12HourTimeWithDay(DateTime time, bool isToday) {
@@ -163,6 +175,8 @@ class DateConverter {
     return difference;
   }
 
-  static String durationDateTime(DateTime dateTime) => DateFormat('MM/dd/yyyy hh:mm:ss a').format(dateTime);
-  static DateTime? convertDurationDateTimeFromString(String? dateTime) => DateFormat('MM/dd/yyyy hh:mm:ss a').tryParse(dateTime ?? '');
+  // static String durationDateTime(DateTime dateTime) => DateFormat('MM/dd/yyyy hh:mm:ss a').format(dateTime);
+  static String durationDateTime(DateTime dateTime) => DateFormat('yyyy-MM-dd hh:mm:ss a').format(dateTime);
+  static DateTime? convertDurationDateTimeFromString(String? dateTime) => DateFormat('yyyy-MM-dd hh:mm:ss a').tryParse(dateTime ?? '');
+  // static DateTime? convertDurationDateTimeFromString(String? dateTime) => DateFormat('MM/dd/yyyy hh:mm:ss a').tryParse(dateTime ?? '');
 }

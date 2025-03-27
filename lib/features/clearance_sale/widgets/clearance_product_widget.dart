@@ -334,7 +334,7 @@ class _ClearanceProductWidgetState extends State<ClearanceProductWidget> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(  widget.products.discountType == 'percentage' ?  '${widget.products.discountAmount}%' : PriceConverter.convertPrice(context, widget.products.discountAmount ?? 0),
+                          Text(  widget.products.discountType == 'percentage' ?  '${widget.products.discountAmount!.toStringAsFixed(0)}%' : PriceConverter.convertPrice(context, widget.products.discountAmount ?? 0),
                             style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeExtraLarge), maxLines: 2,
                           ),
 

@@ -57,7 +57,7 @@ class CouponDetailsDialogWidget extends StatelessWidget {
                           ],
                         ):
                         Column(mainAxisSize: MainAxisSize.min, children: [
-                            Text('${coupons!.discount}%',
+                            Text('${coupons!.discount!.toStringAsFixed(0)}%',
                                 style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault)),
 
                             const SizedBox(height: Dimensions.paddingSizeExtraSmall),

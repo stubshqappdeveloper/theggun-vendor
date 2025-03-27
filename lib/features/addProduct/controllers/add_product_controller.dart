@@ -255,7 +255,8 @@ class AddProductController extends ChangeNotifier {
     if (response.response != null && response.response!.statusCode == 200) {
       _attributeList = [];
       withColor =[];
-      _attributeList!.add(AttributeModel(attribute: Attr(id : 0, name:'Color'), active: false,
+      // _attributeList!.add(AttributeModel(attribute: Attr(id : 0, name:'Color'), active: false,
+      _attributeList!.add(AttributeModel(attribute: Attr(id : 0, name:'색상'), active: false,
           controller: TextEditingController(), variants: []));
       response.response!.data.forEach((attribute) {
         if (product != null && product.attributes!=null && product.attributes!.isNotEmpty) {
@@ -1221,7 +1222,8 @@ class AddProductController extends ChangeNotifier {
       _isLoading = false;
       Navigator.pop(Get.context!);
       showCustomSnackBarWidget(getTranslated('quantity_updated_successfully', Get.context!), Get.context!, isError: false);
-      Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
+      Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+      // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
     } else {
       _isLoading = false;
       ApiChecker.checkApi(apiResponse);

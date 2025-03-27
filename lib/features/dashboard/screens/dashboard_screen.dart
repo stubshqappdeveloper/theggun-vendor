@@ -36,8 +36,10 @@ class DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'KR'?
+    'ko':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
+    // 'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<ProfileController>(context, listen: false).getSellerInfo();
     Provider.of<AddProductController>(context, listen: false).getDigitalAuthor();
     Provider.of<AddProductController>(context, listen: false).getPublishingHouse();

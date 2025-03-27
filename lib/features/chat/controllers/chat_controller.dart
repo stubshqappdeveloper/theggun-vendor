@@ -5,7 +5,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file_plus/open_file_plus.dart';
+// import 'package:open_file_plus/open_file_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sixvalley_vendor_app/features/chat/domain/models/media_file_model.dart';
 import 'package:sixvalley_vendor_app/features/chat/domain/models/message_body.dart';
@@ -81,7 +81,8 @@ class ChatController extends ChangeNotifier {
       messageModel = null;
     }
 
-    ApiResponse apiResponse = await chatServiceInterface.getMessageList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset, id);
+    // ApiResponse apiResponse = await chatServiceInterface.getMessageList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset, id);
+    ApiResponse apiResponse = await chatServiceInterface.getMessageList('customer', offset, id);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1) {
@@ -105,7 +106,8 @@ class ChatController extends ChangeNotifier {
       _chatModel = null;
     }
     _isLoading = true;
-    ApiResponse apiResponse = await chatServiceInterface.getChatList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset);
+    // ApiResponse apiResponse = await chatServiceInterface.getChatList(_userTypeIndex == 0 ? 'customer' : 'delivery-man', offset);
+    ApiResponse apiResponse = await chatServiceInterface.getChatList('customer', offset);
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if(offset == 1) {
@@ -125,7 +127,8 @@ class ChatController extends ChangeNotifier {
   }
 
   Future<void> searchedChatList(BuildContext context, String search) async {
-    ApiResponse apiResponse = await chatServiceInterface.searchChat(_userTypeIndex == 0 ? 'customer' : 'delivery-man', search);
+    // ApiResponse apiResponse = await chatServiceInterface.searchChat(_userTypeIndex == 0 ? 'customer' : 'delivery-man', search);
+    ApiResponse apiResponse = await chatServiceInterface.searchChat('customer', search);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _chatModel = ChatModel(totalSize: 10, limit: '10', offset: '1', chat: []);
       apiResponse.response!.data.forEach((chat) {_chatModel!.chat!.add(Chat.fromJson(chat));});
@@ -143,7 +146,8 @@ class ChatController extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    http.StreamedResponse response = await chatServiceInterface.sendMessage(messageBody, _userTypeIndex == 0 ? 'customer' : 'delivery-man' , getXFileFromMediaFileModel(pickedMediaFileModelList ?? []) ?? [], pickedFiles ?? []);
+    // http.StreamedResponse response = await chatServiceInterface.sendMessage(messageBody, _userTypeIndex == 0 ? 'customer' : 'delivery-man' , getXFileFromMediaFileModel(pickedMediaFileModelList ?? []) ?? [], pickedFiles ?? []);
+    http.StreamedResponse response = await chatServiceInterface.sendMessage(messageBody, 'customer', getXFileFromMediaFileModel(pickedMediaFileModelList ?? []) ?? [], pickedFiles ?? []);
 
     if (response.statusCode == 200) {
       getMessageList(messageBody.userId, 1, reload: false);
@@ -394,7 +398,7 @@ class ChatController extends ChangeNotifier {
     );
 
     if(task !=null){
-      await OpenFile.open(openFileUrl);
+      // await OpenFile.open(openFileUrl);
     }
   }
 
@@ -496,7 +500,8 @@ class ChatController extends ChangeNotifier {
 
 
   Future<ApiResponse> seenMessage(BuildContext context, int? customerId, int? deliveryId) async {
-    ApiResponse apiResponse = await chatServiceInterface.seenMessage(_userTypeIndex == 0 ? customerId!: deliveryId!, _userTypeIndex == 0 ? 'customer' : 'delivery-man');
+    // ApiResponse apiResponse = await chatServiceInterface.seenMessage(_userTypeIndex == 0 ? customerId!: deliveryId!, _userTypeIndex == 0 ? 'customer' : 'delivery-man');
+    ApiResponse apiResponse = await chatServiceInterface.seenMessage(_userTypeIndex == 0 ? customerId!: deliveryId!, 'customer');
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {} else {
       ApiChecker.checkApi(apiResponse);
     }

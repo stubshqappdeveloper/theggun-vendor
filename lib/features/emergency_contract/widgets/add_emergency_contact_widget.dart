@@ -21,7 +21,8 @@ class AddEmergencyContactWidget extends StatefulWidget {
 }
 
 class _AddEmergencyContactWidgetState extends State<AddEmergencyContactWidget> {
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+82";
+  // String? _countryDialCode = "+880";
   TextEditingController contactNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   FocusNode nameFocus = FocusNode();

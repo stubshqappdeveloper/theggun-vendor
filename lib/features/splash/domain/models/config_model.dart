@@ -113,6 +113,7 @@ class ConfigModel {
     _forgotPasswordVerification = forgotPasswordVerification;
     _countryCode = countryCode;
     _decimalPointSettings = decimalPointSettings;
+    _decimalPointSettings = 0;
     if (brandSetting != null) {
       _brandSetting = brandSetting;
     }
@@ -202,6 +203,7 @@ class ConfigModel {
       json['language'].forEach((v) {
         _languageList!.add(Language.fromJson(v));
       });
+      _languageList!.removeWhere((element) => element.code == 'en');
     }
 
     _colors = List<ColorList>.from(json["colors"].map((x) => ColorList.fromJson(x)));
@@ -225,6 +227,7 @@ class ConfigModel {
     _forgotPasswordVerification = json['vendor_forgot_password_method'];
     _countryCode = json['country_code'];
     _decimalPointSettings = int.tryParse(json['decimal_point_settings'].toString());
+    _decimalPointSettings = 0;
     _brandSetting = json['brand_setting'];
     _digitalProductSetting = json['digital_product_setting'];
     _digitalPayment = json['digital_payment'];

@@ -28,7 +28,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Ticker
   void load(BuildContext context) {
     Provider.of<ProductReviewController>(context, listen: false).getProductWiseReviewList(context, 1, widget.productModel!.id);
     Provider.of<ProductDetailsController>(context, listen: false).getProductDetails(widget.productModel!.id);
-    Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
+    Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'ko');
+    // Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
   }
 
   @override

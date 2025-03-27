@@ -151,9 +151,11 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                       CustomButtonWidget(btnTxt: getTranslated('next', context), onTap: (){
                         if(deliveryManProvider.firstNameController.text.trim().isEmpty){
                           showCustomSnackBarWidget(getTranslated('first_name_is_required', context), context);
-                        }else if(deliveryManProvider.lastNameController.text.trim().isEmpty){
-                          showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context);
-                        }else if(deliveryManProvider.emailController.text.trim().isEmpty){
+                        }
+                        // else if(deliveryManProvider.lastNameController.text.trim().isEmpty){
+                        //   showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context);
+                        // }
+                        else if(deliveryManProvider.emailController.text.trim().isEmpty){
                           showCustomSnackBarWidget(getTranslated('email_is_required', context), context);
                         }
                         else if (EmailChecker.isNotValid(deliveryManProvider.emailController.text.trim())) {
@@ -196,9 +198,11 @@ class _AddNewDeliveryManScreenState extends State<AddNewDeliveryManScreen> with 
                             CustomButtonWidget(btnTxt: getTranslated('submit', context), onTap:(){
                               if(deliveryManProvider.firstNameController.text.trim().isEmpty && widget.deliveryMan == null){
                                 showCustomSnackBarWidget(getTranslated('first_name_is_required', context), context, sanckBarType: SnackBarType.warning);
-                              }else if(deliveryManProvider.lastNameController.text.trim().isEmpty && widget.deliveryMan == null){
-                                showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,sanckBarType: SnackBarType.warning);
-                              }else if(deliveryManProvider.emailController.text.trim().isEmpty && widget.deliveryMan == null){
+                              }
+                              // else if(deliveryManProvider.lastNameController.text.trim().isEmpty && widget.deliveryMan == null){
+                              //   showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,sanckBarType: SnackBarType.warning);
+                              // }
+                              else if(deliveryManProvider.emailController.text.trim().isEmpty && widget.deliveryMan == null){
                                 showCustomSnackBarWidget(getTranslated('email_is_required', context), context, sanckBarType: SnackBarType.warning);
                               }
                               else if (EmailChecker.isNotValid(deliveryManProvider.emailController.text.trim()) && widget.deliveryMan == null) {

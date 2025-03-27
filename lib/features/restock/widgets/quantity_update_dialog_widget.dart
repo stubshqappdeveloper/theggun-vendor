@@ -30,8 +30,10 @@ class _QuantityUpdateDialogWidgetState extends State<QuantityUpdateDialogWidget>
   int addColor = 0;
 
   void _load(){
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
+    // 'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'KR'?
+    'ko':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
     // Provider.of<SplashController>(context,listen: false).getColorList();
     Provider.of<AddProductController>(context,listen: false).getAttributeList(context, widget.product, languageCode);
   }

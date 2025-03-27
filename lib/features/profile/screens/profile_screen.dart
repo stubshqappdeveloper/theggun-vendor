@@ -39,7 +39,8 @@ class ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  String? _countryDialCode = '+880';
+  String? _countryDialCode = '+82';
+  // String? _countryDialCode = '+880';
 
   File? file;
   final picker = ImagePicker();

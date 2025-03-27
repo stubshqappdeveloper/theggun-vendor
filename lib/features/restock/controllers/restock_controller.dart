@@ -309,7 +309,8 @@ class RestockController with ChangeNotifier {
       _isLoading = false;
       Navigator.pop(Get.context!);
       showCustomSnackBarWidget(getTranslated('quantity_updated_successfully', Get.context!), Get.context!, isError: false);
-      Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
+      Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+      // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
     } else {
       _isLoading = false;
       ApiChecker.checkApi(apiResponse);

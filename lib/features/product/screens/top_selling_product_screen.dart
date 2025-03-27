@@ -20,7 +20,8 @@ class TopSellingProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async{
-        Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'en');
+        Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'ko');
+        // Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'en');
       },
       child: Consumer<ProductController>(
         builder: (context, prodProvider, child) {
@@ -54,7 +55,8 @@ class TopSellingProductScreen extends StatelessWidget {
                 totalSize: prodProvider.topSellingProductModel!.totalSize,
                 offset: prodProvider.topSellingProductModel != null ? int.parse(prodProvider.topSellingProductModel!.offset!) : null,
                 onPaginate: (int? offset) async {
-                  await prodProvider.getTopSellingProductList(offset!, context,'en', reload: false);
+                  await prodProvider.getTopSellingProductList(offset!, context,'ko', reload: false);
+                  // await prodProvider.getTopSellingProductList(offset!, context,'en', reload: false);
                 },
 
                 itemView: GridView.builder(

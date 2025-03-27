@@ -29,7 +29,8 @@ class _POSProductScreenState extends State<POSProductScreen> {
     Provider.of<AddProductController>(context,listen: false).emptyCategoryList();
     Provider.of<ProductController>(context, listen: false).shoHideDialog(false,notify: false);
     Provider.of<ProductController>(context, listen: false).getPosProductList(1, context,[]);
-    Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
+    Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'ko');
+    // Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
     super.initState();
   }
   final ScrollController _scrollController = ScrollController();

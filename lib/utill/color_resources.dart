@@ -181,17 +181,28 @@ class ColorResources {
   static Color nevDefaultColor = const Color(0xFFAAAAAA);
 
   static const Map<int, Color> colorMap = {
-    50: Color(0x101455AC),
-    100: Color(0x201455AC),
-    200: Color(0x301455AC),
-    300: Color(0x401455AC),
-    400: Color(0x501455AC),
-    500: Color(0x601455AC),
-    600: Color(0x701455AC),
-    700: Color(0x801455AC),
-    800: Color(0x901455AC),
-    900: Color(0xff1455AC),
+    50: Color(0x10f7ba00),
+    100: Color(0x20f7ba00),
+    200: Color(0x30f7ba00),
+    300: Color(0x40f7ba00),
+    400: Color(0x50f7ba00),
+    500: Color(0x60f7ba00),
+    600: Color(0x70f7ba00),
+    700: Color(0x80f7ba00),
+    800: Color(0x90f7ba00),
+    900: Color(0xfff7ba00),
+    // 50: Color(0x101455AC),
+    // 100: Color(0x201455AC),
+    // 200: Color(0x301455AC),
+    // 300: Color(0x401455AC),
+    // 400: Color(0x501455AC),
+    // 500: Color(0x601455AC),
+    // 600: Color(0x701455AC),
+    // 700: Color(0x801455AC),
+    // 800: Color(0x901455AC),
+    // 900: Color(0xff1455AC),
   };
 
-  static const MaterialColor primaryMaterial = MaterialColor(0xFF1455AC, colorMap);
+  static const MaterialColor primaryMaterial = MaterialColor(0xFFf7ba00, colorMap);
+  // static const MaterialColor primaryMaterial = MaterialColor(0xFF1455AC, colorMap);
 }

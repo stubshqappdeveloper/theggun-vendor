@@ -66,8 +66,8 @@ class MenuBottomSheetWidget extends StatelessWidget {
           onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> const SettingsScreen()))),
 
 
-      CustomBottomSheetWidget(image: Images.restockIcon, title: getTranslated('restock', context),
-          onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> const RestockListScreen()))),
+      // CustomBottomSheetWidget(image: Images.restockIcon, title: getTranslated('restock', context),
+      //     onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (_)=> const RestockListScreen()))),
 
 
       CustomBottomSheetWidget(image: Images.clearanceSaleImage, title: getTranslated('clearance_sale', context),

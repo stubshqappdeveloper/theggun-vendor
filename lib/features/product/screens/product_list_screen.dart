@@ -32,8 +32,10 @@ class _ProductListMenuScreenState extends State<ProductListMenuScreen> {
 
   void _getBrandList(){
     ///getting brand list for product filter
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US' ?
-    'en' : Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US' ?
+    // 'en' : Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'KR' ?
+    'ko' : Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<AddProductController>(Get.context!,listen: false).getBrandList(Get.context!, languageCode);
   }
 
@@ -105,7 +107,8 @@ class _ProductListMenuScreenState extends State<ProductListMenuScreen> {
                               iconPressed: () => (){},
                               onSubmit: (text) => (){},
                               onChanged: (value)=> _debounce.run(() async {
-                                productController.getSellerProductList(userId.toString(), 1, 'en', value, reload: true);
+                                productController.getSellerProductList(userId.toString(), 1, 'ko', value, reload: true);
+                                // productController.getSellerProductList(userId.toString(), 1, 'en', value, reload: true);
 
                               }),
                             ),

@@ -97,7 +97,8 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
         return RefreshIndicator(
           onRefresh: () async{
             Provider.of<ProductDetailsController>(context, listen: false).getProductDetails(widget.productModel!.id);
-            Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
+            Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'ko');
+            // Provider.of<AddProductController>(context,listen: false).getCategoryList(context,null, 'en');
           },
           child: NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {

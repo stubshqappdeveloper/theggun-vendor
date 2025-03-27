@@ -26,7 +26,8 @@ class _ReviewProductFilterWidgetState extends State<ReviewProductFilterWidget> {
               controller: scrollController,
               child: PaginatedListViewWidget(scrollController: scrollController,
                   onPaginate: (int? offset) async{
-                await productProvider.getSellerProductList(Provider.of<ProfileController>(context, listen: false).userInfoModel!.id.toString(), offset!, 'en','', reload: true);
+                await productProvider.getSellerProductList(Provider.of<ProfileController>(context, listen: false).userInfoModel!.id.toString(), offset!, 'ko','', reload: true);
+                // await productProvider.getSellerProductList(Provider.of<ProfileController>(context, listen: false).userInfoModel!.id.toString(), offset!, 'en','', reload: true);
                 },
                   totalSize: productProvider.sellerProductModel!.totalSize,
                   offset: productProvider.sellerProductModel!.offset,

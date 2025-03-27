@@ -30,14 +30,16 @@ class DeliveryManInfoWidget extends StatefulWidget {
 }
 
 class _DeliveryManInfoWidgetState extends State<DeliveryManInfoWidget> {
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+82";
+  // String? _countryDialCode = "+880";
 
   @override
   void initState() {
     super.initState();
     if(widget.deliveryMan != null && !widget.isPassword) {
       Provider.of<DeliveryManController>(context, listen: false).firstNameController.text = widget.deliveryMan!.fName!;
-      Provider.of<DeliveryManController>(context, listen: false).lastNameController.text = widget.deliveryMan!.lName!;
+      Provider.of<DeliveryManController>(context, listen: false).lastNameController.text = '.';
+      // Provider.of<DeliveryManController>(context, listen: false).lastNameController.text = widget.deliveryMan!.lName!;
       Provider.of<DeliveryManController>(context, listen: false).emailController.text = widget.deliveryMan!.email!;
       Provider.of<DeliveryManController>(context, listen: false).phoneController.text = widget.deliveryMan!.phone!;
       Provider.of<DeliveryManController>(context, listen: false).addressController.text = widget.deliveryMan!.address ?? '';
@@ -122,18 +124,18 @@ class _DeliveryManInfoWidgetState extends State<DeliveryManInfoWidget> {
                             )),
                         const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                        Container(margin: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge,
-                            bottom: Dimensions.paddingSizeSmall),
-                            child: CustomTextFieldWidget(
-                              border: true,
-                              hintText: getTranslated('last_name', context),
-                              focusNode: deliveryManProvider.lastNameNode,
-                              nextNode: deliveryManProvider.emailNode,
-                              textInputType: TextInputType.name,
-                              controller: deliveryManProvider.lastNameController,
-                              textInputAction: TextInputAction.next,
-                            )),
-                        const SizedBox(height: Dimensions.paddingSizeSmall),
+                        // Container(margin: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge,
+                        //     bottom: Dimensions.paddingSizeSmall),
+                        //     child: CustomTextFieldWidget(
+                        //       border: true,
+                        //       hintText: getTranslated('last_name', context),
+                        //       focusNode: deliveryManProvider.lastNameNode,
+                        //       nextNode: deliveryManProvider.emailNode,
+                        //       textInputType: TextInputType.name,
+                        //       controller: deliveryManProvider.lastNameController,
+                        //       textInputAction: TextInputAction.next,
+                        //     )),
+                        // const SizedBox(height: Dimensions.paddingSizeSmall),
 
                         Container(margin: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge,
                             bottom: Dimensions.paddingSizeSmall),

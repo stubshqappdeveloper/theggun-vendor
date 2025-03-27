@@ -41,9 +41,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
     Provider.of<OrderController>(context, listen: false).getOrderList(context,1,'all');
     Provider.of<BankInfoController>(context, listen: false).getAnalyticsFilterData(context, 'overall');
     Provider.of<SplashController>(context,listen: false).getColorList();
-    Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'en');
-    Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'en');
-    Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'en');
+    Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'ko');
+    // Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'en');
+    Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'ko');
+    // Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'en');
+    Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'ko');
+    // Provider.of<ProductController>(context,listen: false).getTopSellingProductList(1, context, 'en');
     Provider.of<ShippingController>(context,listen: false).getCategoryWiseShippingMethod();
     Provider.of<ShippingController>(context,listen: false).getSelectedShippingMethodType(context);
     Provider.of<DeliveryManController>(context, listen: false).getTopDeliveryManList(context);

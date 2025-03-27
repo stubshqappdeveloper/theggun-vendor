@@ -23,7 +23,7 @@ class AddNewCustomerScreen extends StatefulWidget {
 class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
 
   final TextEditingController _fName = TextEditingController();
-  final TextEditingController _lName = TextEditingController();
+  final TextEditingController _lName = TextEditingController(text: ".");
   final TextEditingController _email = TextEditingController();
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _country = TextEditingController();
@@ -40,7 +40,8 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
   final FocusNode _cityNode = FocusNode();
   final FocusNode _zipCodeNode = FocusNode();
   final FocusNode _addressNode = FocusNode();
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+82";
+  // String? _countryDialCode = "+880";
   @override
   void initState() {
     _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashController>(context, listen: false).configModel!.countryCode!).dialCode;
@@ -72,19 +73,19 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                         )),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                    Container(
-                        margin: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge,
-                            bottom: Dimensions.paddingSizeSmall),
-                        child: CustomTextFieldWidget(
-                          border: true,
-                          hintText: getTranslated('last_name', context),
-                          focusNode: _lNameNode,
-                          nextNode: _emailNode,
-                          textInputType: TextInputType.name,
-                          controller: _lName,
-                          textInputAction: TextInputAction.next,
-                        )),
-                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                    // Container(
+                    //     margin: const EdgeInsets.only(left: Dimensions.paddingSizeLarge, right: Dimensions.paddingSizeLarge,
+                    //         bottom: Dimensions.paddingSizeSmall),
+                    //     child: CustomTextFieldWidget(
+                    //       border: true,
+                    //       hintText: getTranslated('last_name', context),
+                    //       focusNode: _lNameNode,
+                    //       nextNode: _emailNode,
+                    //       textInputType: TextInputType.name,
+                    //       controller: _lName,
+                    //       textInputAction: TextInputAction.next,
+                    //     )),
+                    // const SizedBox(height: Dimensions.paddingSizeSmall),
 
 
                     Container(
@@ -207,9 +208,11 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
 
                 if(firstName.isEmpty){
                   showCustomSnackBarWidget(getTranslated('first_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
-                }else if(lastName.isEmpty){
-                  showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context, sanckBarType: SnackBarType.warning);
-                }else if(email.isEmpty){
+                }
+                // else if(lastName.isEmpty){
+                //   showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context, sanckBarType: SnackBarType.warning);
+                // }
+                else if(email.isEmpty){
                   showCustomSnackBarWidget(getTranslated('email_is_required', context), context, sanckBarType: SnackBarType.warning);
                 }else if(email.isEmpty){
                   showCustomSnackBarWidget(getTranslated('email_name_is_required', context), context, sanckBarType: SnackBarType.warning);

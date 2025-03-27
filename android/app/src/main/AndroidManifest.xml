@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sixamtech.sixvalley.seller">
+    package="com.theggun.provider">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
 
    <application
-       android:label="6Valley Vendor"
+       android:label="더꾼 전문가용"
        android:name="${applicationName}"
        android:extractNativeLibs="true"
        android:icon="@mipmap/ic_launcher"
@@ -36,7 +36,7 @@
 
        <meta-data
            android:name="com.google.android.geo.API_KEY"
-           android:value="YOUR_MAP_KEY_HERE" />
+           android:value="AIzaSyDPtSLhcnyLTiTipLyo6KYnl0wnTXSbnkc" />
 
 
         <activity

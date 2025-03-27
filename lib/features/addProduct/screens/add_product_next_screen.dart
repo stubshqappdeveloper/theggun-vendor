@@ -83,8 +83,10 @@ class AddProductNextScreenState extends State<AddProductNextScreen> {
 
 
   Future<void> _load() async {
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
+    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'KR'?
+    'ko':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // 'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
     Provider.of<SplashController>(context,listen: false).getColorList();
     await Provider.of<AddProductController>(context,listen: false).getAttributeList(context, widget.product, languageCode);
 
@@ -158,7 +160,8 @@ class AddProductNextScreenState extends State<AddProductNextScreen> {
           child: Consumer<AddProductController>(
             builder: (context, resProvider, child){
               List<int> brandIds = [];
-              List<String> digitalVariation = ['Audio', 'Video', 'Document', 'Software'];
+              // List<String> digitalVariation = ['Audio', 'Video', 'Document', 'Software'];
+              List<String> digitalVariation = ['오디오', '동영상', '문서', '소프트웨어'];
               List<int> colors = [];
               brandIds.add(0);
               colors.add(0);

@@ -2,11 +2,12 @@ import 'package:sixvalley_vendor_app/localization/models/language_model.dart';
 import 'package:sixvalley_vendor_app/utill/images.dart';
 
 class AppConstants {
-  static const String appName = 'Vendor App';
+  static const String appName = '더꾼 전문가용';
+  // static const String appVersion = '1.0'; // Flutter SDK version - 3.27.4
   static const String appVersion = '15.1'; // Flutter SDK version - 3.27.4
-  static const String companyName = '6Valley';
+  static const String companyName = '더꾼 전문가용';
 
-  static const String baseUrl = 'YOUR_BASE_URL_HERE';
+  static const String baseUrl = 'https://theggun.com';
 
   static const String loginUri = '/api/v3/seller/auth/login';
   static const String configUri = '/api/v1/config';
@@ -205,11 +206,12 @@ class AppConstants {
   static const String bluetoothMacAddress = 'bluetooth_mac_address';
 
   static List<LanguageModel> languages = [
-    LanguageModel(imageUrl: Images.unitedKingdom, languageName: 'English', countryCode: 'US', languageCode: 'en'),
-    LanguageModel(imageUrl: Images.arabic, languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
-    LanguageModel(imageUrl: Images.hindi, languageName: 'Hindi', countryCode: 'IN', languageCode: 'hi'),
-    LanguageModel(imageUrl: Images.bd, languageName: 'Bangla', countryCode: 'BD', languageCode: 'bn'),
-    LanguageModel(imageUrl: Images.spanish, languageName: 'Spanish', countryCode: 'ES', languageCode: 'es'),
+    // LanguageModel(imageUrl: Images.ko, languageName: 'Korean', countryCode: 'US', languageCode: 'en'),
+    LanguageModel(imageUrl: Images.ko, languageName: 'Korean', countryCode: 'KR', languageCode: 'ko'),
+    // LanguageModel(imageUrl: Images.arabic, languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
+    // LanguageModel(imageUrl: Images.hindi, languageName: 'Hindi', countryCode: 'IN', languageCode: 'hi'),
+    // LanguageModel(imageUrl: Images.bd, languageName: 'Bangla', countryCode: 'BD', languageCode: 'bn'),
+    // LanguageModel(imageUrl: Images.spanish, languageName: 'Spanish', countryCode: 'ES', languageCode: 'es'),
   ];
 
   static const double maxSizeOfASingleFile = 10;

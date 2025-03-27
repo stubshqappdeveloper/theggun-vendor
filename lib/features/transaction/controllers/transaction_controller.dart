@@ -141,9 +141,11 @@ class TransactionController extends ChangeNotifier {
 
   final int _selectedItem = 0;
   int get selectedItem => _selectedItem;
-  String _startDate = 'dd-mm-yyyy';
+  // String _startDate = 'dd-mm-yyyy';
+  String _startDate = 'yyyy-MM-dd';
   String get startDate => _startDate;
-  String _endDate = 'dd-mm-yyyy';
+  // String _endDate = 'dd-mm-yyyy';
+  String _endDate = 'yyyy-MM-dd';
   String get endDate => _endDate;
 
   Future <void> selectDate(BuildContext context, String startDate, String endDate) async {

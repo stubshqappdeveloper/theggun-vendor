@@ -42,7 +42,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> with TickerProv
           break;
       }
     });
-    Provider.of<AuthController>(Get.context!, listen: false).setCountryDialCode(CountryCode.fromCountryCode(Provider.of<SplashController>(context, listen: false).configModel!.countryCode ?? '+880').dialCode);
+    Provider.of<AuthController>(Get.context!, listen: false).setCountryDialCode(CountryCode.fromCountryCode(Provider.of<SplashController>(context, listen: false).configModel!.countryCode ?? '+82').dialCode);
+    // Provider.of<AuthController>(Get.context!, listen: false).setCountryDialCode(CountryCode.fromCountryCode(Provider.of<SplashController>(context, listen: false).configModel!.countryCode ?? '+880').dialCode);
     Provider.of<AuthController>(Get.context!, listen: false).emptyRegistrationData();
   }
 
@@ -154,7 +155,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> with TickerProv
                       color: Theme.of(context).cardColor
                   ),
                   child:(authController.selectionTabIndex ==1) ?
-                  CustomButtonWidget(btnTxt: getTranslated('proceed_to_next', context), onTap: (){
+                  // CustomButtonWidget(btnTxt: getTranslated('proceed_to_next', context), onTap: (){
+                  CustomButtonWidget(btnTxt: '다음', onTap: (){
                     if(authController.emailController.text.trim().isEmpty) {
                       showCustomSnackBarWidget(getTranslated('email_is_required', context), context,  sanckBarType: SnackBarType.warning);
                     }
@@ -203,13 +205,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> with TickerProv
                           btnTxt: getTranslated('submit', context), onTap: !authController.isTermsAndCondition!? null: (){
                           if(authController.firstNameController.text.trim().isEmpty){
                             showCustomSnackBarWidget(getTranslated('first_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
-                          }else if(authController.lastNameController.text.trim().isEmpty){
-                            showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
-                          }else if(authController.firstNameController.text.trim().isEmpty){
+                          }
+                          // else if(authController.lastNameController.text.trim().isEmpty){
+                          //   showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
+                          // }
+                          else if(authController.firstNameController.text.trim().isEmpty){
                             showCustomSnackBarWidget(getTranslated('first_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
-                          }else if(authController.lastNameController.text.trim().isEmpty){
-                            showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
-                          }else if(authController.sellerProfileImage == null){
+                          }
+                          // else if(authController.lastNameController.text.trim().isEmpty){
+                          //   showCustomSnackBarWidget(getTranslated('last_name_is_required', context), context,  sanckBarType: SnackBarType.warning);
+                          // }
+                          else if(authController.sellerProfileImage == null){
                             showCustomSnackBarWidget(getTranslated('profile_image_is_required', context), context,  sanckBarType: SnackBarType.warning);
                           }else if(authController.emailController.text.trim().isEmpty){
                             showCustomSnackBarWidget(getTranslated('email_is_required', context), context,  sanckBarType: SnackBarType.warning);

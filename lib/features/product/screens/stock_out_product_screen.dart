@@ -16,7 +16,8 @@ class StockOutProductScreen extends StatelessWidget {
       appBar: CustomAppBarWidget(title: getTranslated('stock_out_product',context)),
       body: RefreshIndicator(
         onRefresh: () async{
-          Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'en');
+          Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'ko');
+          // Provider.of<ProductController>(context,listen: false).getStockOutProductList(1, 'en');
         },
         child: const Padding(
           padding: EdgeInsets.only(top: Dimensions.paddingSizeSmall),

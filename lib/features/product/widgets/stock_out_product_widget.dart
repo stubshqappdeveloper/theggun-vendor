@@ -41,8 +41,10 @@ class StockOutProductView extends StatelessWidget {
 
           Provider.of<ProductController>(context, listen: false).getStockOutProductList(
               Provider.of<ProductController>(context, listen: false).
-              offset, Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?
-          'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase());
+              offset, Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'KR'?
+          'ko':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase());
+          // offset, Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?
+          // 'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase());
 
         }
       }

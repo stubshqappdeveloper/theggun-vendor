@@ -53,8 +53,10 @@ class AddProductScreenState extends State<AddProductScreen> with TickerProviderS
 
   Future<void> _load() async{
     Provider.of<AddProductController>(context, listen: false).resetCategory();
-    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
-    'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'KR'?
+    'ko':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
+    // String languageCode = Provider.of<LocalizationController>(context, listen: false).locale.countryCode == 'US'?
+    // 'en':Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase();
     await Provider.of<SplashController>(Get.context!, listen: false).getColorList();
      await Provider.of<AddProductController>(Get.context!,listen: false).getAttributeList(Get.context!, widget.product, languageCode);
     await Provider.of<AddProductController>(Get.context!,listen: false).getCategoryList(Get.context!,widget.product, languageCode);
@@ -167,24 +169,24 @@ class AddProductScreenState extends State<AddProductScreen> with TickerProviderS
                               child: Padding(
                                 padding: const EdgeInsets.only(top: Dimensions.paddingSizeMedium, left: Dimensions.paddingEye, bottom: Dimensions.paddingEye),
                                 child: SizedBox(width: MediaQuery.of(context).size.width,
-                                  child: TabBar(
-                                    tabAlignment: TabAlignment.start,
-                                    isScrollable: true,
-                                    dividerColor: Colors.transparent,
-                                    controller: _tabController,
-                                    indicatorColor: Theme.of(context).primaryColor,
-                                    indicatorWeight: 12,
-                                    indicatorSize: TabBarIndicatorSize.tab,
-                                    indicatorPadding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                                    indicator: BoxDecoration(
-                                      border: Border(bottom: BorderSide(color: Theme.of(context).primaryColor, width: 2,),
-                                      ),
-                                    ),
-                                    unselectedLabelStyle: robotoRegular.copyWith(color: Theme.of(context).hintColor,),
-                                    labelStyle: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge,
-                                      color: Theme.of(context).disabledColor,),
-                                    tabs: _generateTabChildren(),
-                                  ),
+                                  // child: TabBar(
+                                  //   tabAlignment: TabAlignment.start,
+                                  //   isScrollable: true,
+                                  //   dividerColor: Colors.transparent,
+                                  //   controller: _tabController,
+                                  //   indicatorColor: Theme.of(context).primaryColor,
+                                  //   indicatorWeight: 12,
+                                  //   indicatorSize: TabBarIndicatorSize.tab,
+                                  //   indicatorPadding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
+                                  //   indicator: BoxDecoration(
+                                  //     border: Border(bottom: BorderSide(color: Theme.of(context).primaryColor, width: 2,),
+                                  //     ),
+                                  //   ),
+                                  //   unselectedLabelStyle: robotoRegular.copyWith(color: Theme.of(context).hintColor,),
+                                  //   labelStyle: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge,
+                                  //     color: Theme.of(context).disabledColor,),
+                                  //   tabs: _generateTabChildren(),
+                                  // ),
                                 ),
                               ),
                             ),

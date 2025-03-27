@@ -99,7 +99,8 @@ class PriceConverter {
         (1/splashProvider.usdCurrency!.exchangeRate!)).toStringAsFixed(splashProvider.configModel!.decimalPointSettings!));
   }
   static String percentageCalculation(BuildContext context, double? price, double? discount, String? discountType) {
-    return '-${(discountType == 'percent' || discountType == 'percentage') ? '$discount %'
+
+    return '-${(discountType == 'percent' || discountType == 'percentage') ? '${discount!.toStringAsFixed(0)} %'
         : convertPrice(context, discount)}';
   }
   static String discountCalculationWithOutSymbol(BuildContext context,double price, double discount, String? discountType) {
@@ -108,7 +109,8 @@ class PriceConverter {
     }else if(discountType == 'percent') {
       discount =  ((discount / 100) * price);
     }
-    return discount.toStringAsFixed(2);
+    return discount.toStringAsFixed(0);
+    // return discount.toStringAsFixed(2);
   }
 
   static String discountCalculation(BuildContext context,double price, double discount, String? discountType) {
@@ -118,6 +120,7 @@ class PriceConverter {
     }else if(discountType == 'percent') {
       discount =  ((discount / 100) * price);
     }
-    return '${splashProvider.myCurrency!.symbol} ${discount.toStringAsFixed(2)}';
+    return '${splashProvider.myCurrency!.symbol} ${discount.toStringAsFixed(0)}';
+    // return '${splashProvider.myCurrency!.symbol} ${discount.toStringAsFixed(2)}';
   }
 }

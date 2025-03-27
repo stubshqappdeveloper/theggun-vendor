@@ -171,7 +171,8 @@ class _ProductFilterBottomSheetState extends State<ProductFilterBottomSheet> {
                         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                           CustomDateRangePickerWidget(
                             text: productProvider.startDate == null
-                                ? 'dd-mm-yyyy'
+                                // ? 'dd-mm-yyyy'
+                                ? 'yyyy-MM-dd'
                                 : DateConverter.dateStringMonthYear(productProvider.startDate),
                           ),
 
@@ -179,7 +180,8 @@ class _ProductFilterBottomSheetState extends State<ProductFilterBottomSheet> {
 
                           CustomDateRangePickerWidget(
                             text: productProvider.endDate == null
-                                ? 'dd-mm-yyyy'
+                                // ? 'dd-mm-yyyy'
+                                ? 'yyyy-MM-dd'
                                 : DateConverter.dateStringMonthYear(productProvider.endDate),
                           ),
                         ]),
@@ -513,7 +515,8 @@ class _ButtonWidget extends StatelessWidget {
                 productController.getSellerProductList(
                   '${Provider.of<ProfileController>(context, listen: false).userId}',
                   productController.sellerProductModel?.offset ?? 1,
-                  'en',
+                  'ko',
+                  // 'en',
                   productController.sellerProductModel?.search ?? '',
                   isUpdate: true,
                 );
@@ -535,7 +538,8 @@ class _ButtonWidget extends StatelessWidget {
                 await productController.getSellerProductList(
                   '${Provider.of<ProfileController>(context, listen: false).userId}',
                   productController.sellerProductModel?.offset ?? 1,
-                  'en',
+                  'ko',
+                  // 'en',
                   productController.sellerProductModel?.search ?? '',
                   brandIds: productController.selectedBrandIds.toList(),
                   categoryIds: _getSelectedCategoryIds(context),

@@ -18,7 +18,8 @@ class MostPopularProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async{
-        Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'en');
+        Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'ko');
+        // Provider.of<ProductController>(context,listen: false).getMostPopularProductList(1, context, 'en');
       },
       child: Consumer<ProductController>(
         builder: (context, productController, child) {

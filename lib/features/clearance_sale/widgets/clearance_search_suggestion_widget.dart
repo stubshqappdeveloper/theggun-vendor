@@ -148,7 +148,8 @@ class _SearchSuggestionState extends State<SearchSuggestion> with WidgetsBinding
 
                   await clearanceController.getSearchProductList(
                       Provider.of<ProfileController>(context, listen: false).userId.toString(),
-                      1, context, 'en', textEditingValue.text, reload: false
+                      1, context, 'ko', textEditingValue.text, reload: false
+                      // 1, context, 'en', textEditingValue.text, reload: false
                   );
 
                   if (textEditingValue.text.isEmpty || clearanceController.sellerProductModel?.products == null) {

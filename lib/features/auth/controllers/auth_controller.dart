@@ -46,11 +46,12 @@ class AuthController with ChangeNotifier {
   String get phone => _phone;
   bool _isPhoneNumberVerificationButtonLoading = false;
   bool get isPhoneNumberVerificationButtonLoading => _isPhoneNumberVerificationButtonLoading;
-  String? _countryDialCode = '+880';
+  String? _countryDialCode = '+82';
+  // String? _countryDialCode = '+880';
   String? get countryDialCode => _countryDialCode;
 
   TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController(text: ".");
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -92,7 +93,8 @@ class AuthController with ChangeNotifier {
     notifyListeners();
     if(apiResponse.response?.statusCode == 200) {
       await Provider.of<AuthController>(Get.context!, listen: false).updateToken(Get.context!);
-      setCurrentLanguage(Provider.of<LocalizationController>(Get.context!, listen: false).getCurrentLanguage()??'en');
+      setCurrentLanguage(Provider.of<LocalizationController>(Get.context!, listen: false).getCurrentLanguage()??'ko');
+      // setCurrentLanguage(Provider.of<LocalizationController>(Get.context!, listen: false).getCurrentLanguage()??'en');
       setUnAuthorize(false);
       notifyListeners();
     }
@@ -233,6 +235,7 @@ class AuthController with ChangeNotifier {
       _isLoading = false;
       firstNameController.clear();
       lastNameController.clear();
+      lastNameController.text = '.';
       phoneController.clear();
       emailController.clear();
       passwordController.clear();
@@ -263,6 +266,7 @@ class AuthController with ChangeNotifier {
   void emptyRegistrationData ({bool isUpdate = false}) {
     firstNameController.clear();
     lastNameController.clear();
+    lastNameController.text = '.';
     phoneController.clear();
     emailController.clear();
     passwordController.clear();

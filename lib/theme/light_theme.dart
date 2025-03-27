@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
   fontFamily: 'TitilliumWeb',
-  primaryColor: const Color(0xFF1455AC),
+  primaryColor: const Color(0xFFf7ba00),
+  // primaryColor: const Color(0xFF1455AC),
   bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.transparent),
   brightness: Brightness.light,
   highlightColor: Colors.white,
@@ -14,16 +15,20 @@ ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(
 
     error: Color(0xFFFF5A5A),
-    primary: Color(0xFF1455AC),
-    secondary: Color(0xFF004C8E),
+    primary: Color(0xFFf7ba00),
+    // primary: Color(0xFF1455AC),
+    secondary: Color(0xFFf7ba00),
+    // secondary: Color(0xFF004C8E),
     tertiary: Color(0xFFF9D4A8),
     tertiaryContainer: Color(0xFFADC9F3),
     onTertiaryContainer: Color(0xFF33AF74),
     primaryContainer: Color(0xFF9AECC6),
     secondaryContainer: Color(0xFFF2F2F2),
     surface: Color(0xFFFFFFFF),
-    surfaceTint: Color(0xFF0087FF),
-    onPrimary: Color(0xFF67AFFF),
+    // surfaceTint: Color(0xFF0087FF),
+    surfaceTint: Color(0xFFf7ba00),
+    onPrimary: Color(0xFFf7ba00),
+    // onPrimary: Color(0xFF67AFFF),
     onSecondary: Color(0xFFFC9926),
   ),
 

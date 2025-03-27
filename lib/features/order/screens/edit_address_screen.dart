@@ -51,7 +51,8 @@ class EditAddressScreenState extends State<EditAddressScreen> {
   bool _updateAddress = true;
   CameraPosition? _cameraPosition;
   GoogleMapController? _controller;
-  String? _countryDialCode = "+880";
+  String? _countryDialCode = "+82";
+  // String? _countryDialCode = "+880";
   String? _phoneNumberOnly;
 
   @override
@@ -204,7 +205,8 @@ class EditAddressScreenState extends State<EditAddressScreen> {
                            _countryDialCode = countryCode.dialCode;
                           },
                           initialSelection: _countryDialCode,
-                          favorite: const ['+880'],
+                          favorite: const ['+82'],
+                          // favorite: const ['+880'],
                           showDropDownButton: true,
                           padding: EdgeInsets.zero,
                           showFlagMain: true,

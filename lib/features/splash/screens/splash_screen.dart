@@ -45,12 +45,12 @@ class SplashScreenState extends State<SplashScreen> {
         Provider.of<SplashController>(Get.context!, listen: false).initShippingTypeList(Get.context!,'');
         Timer(const Duration(seconds: 1), () async {
           final config = Provider.of<SplashController>(Get.context!, listen: false).configModel;
-          if(config?.maintenanceModeData?.maintenanceStatus == 1 && config?.maintenanceModeData?.selectedMaintenanceSystem?.vendorApp == 1) {
-            Navigator.of(Get.context!).pushReplacement(MaterialPageRoute(
-              builder: (_) => const MaintenanceScreen(),
-              settings: const RouteSettings(name: 'MaintenanceScreen'),
-            ));
-          }  else {
+          // if(config?.maintenanceModeData?.maintenanceStatus == 1 && config?.maintenanceModeData?.selectedMaintenanceSystem?.vendorApp == 1) {
+          //   Navigator.of(Get.context!).pushReplacement(MaterialPageRoute(
+          //     builder: (_) => const MaintenanceScreen(),
+          //     settings: const RouteSettings(name: 'MaintenanceScreen'),
+          //   ));
+          // }  else {
             if(widget.body != null) {
               String notificationType = widget.body?.type??"";
 
@@ -103,7 +103,7 @@ class SplashScreenState extends State<SplashScreen> {
                 Navigator.of(Get.context!).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const AuthScreen()));
               }
             }
-          }
+          // }
         });
       }
     });
@@ -132,9 +132,9 @@ class SplashScreenState extends State<SplashScreen> {
                   child: Image.asset(Images.whiteLogo, height: 80.0,
                       fit: BoxFit.cover, width: 80.0)),
               const SizedBox(height: Dimensions.paddingSizeExtraLarge,),
-              Text(AppConstants.appName, style: titilliumBold.copyWith(fontSize: Dimensions.fontSizeWallet,
-                  color: Colors.white),
-              ),
+              // Text(AppConstants.appName, style: titilliumBold.copyWith(fontSize: Dimensions.fontSizeWallet,
+              //     color: Colors.white),
+              // ),
             ],
           ),
         ),

@@ -290,7 +290,7 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                       helperStyle: TextStyle(
                                         color: Theme.of(context).primaryColor,
                                       ),
-                                      hintText: _controller!.hasTags ? '' : "Enter tag...",
+                                      hintText: _controller!.hasTags ? '' : "태그를 입력하세요...",
                                       hintStyle: TextStyle(color: Theme.of(context).hintColor),
                                       errorText: error,
                                       prefixIconConstraints:

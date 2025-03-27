@@ -316,9 +316,11 @@ class _ProductWidgetState extends State<ShopProductWidget> {
                           description: getTranslated('are_you_sure_want_to_delete_this_product', context),
                           onYesPressed: () {
                             Provider.of<ProductController>(context, listen:false).deleteProduct(context ,widget.productModel!.id).then((value) {
-                              Provider.of<ProductController>(Get.context!,listen: false).getStockOutProductList(1, 'en');
+                              Provider.of<ProductController>(Get.context!,listen: false).getStockOutProductList(1, 'ko');
+                              // Provider.of<ProductController>(Get.context!,listen: false).getStockOutProductList(1, 'en');
                               Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(Provider.of<ProfileController>(Get.context!, listen: false).
-                              userInfoModel!.id.toString(), 1, 'en','', reload: true);
+                              userInfoModel!.id.toString(), 1, 'ko','', reload: true);
+                              // userInfoModel!.id.toString(), 1, 'en','', reload: true);
                             });
                           }
 

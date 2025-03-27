@@ -22,7 +22,8 @@ bool _isDateSet(String dateText) {
 
 class _CustomDateRangePickerWidgetState extends State<CustomDateRangePickerWidget> {
 
-  String datePlaceHolder = 'dd-mm-yyyy';
+  // String datePlaceHolder = 'dd-mm-yyyy';
+  String datePlaceHolder = 'yyyy-MM-dd';
 
   @override
   Widget build(BuildContext context) {

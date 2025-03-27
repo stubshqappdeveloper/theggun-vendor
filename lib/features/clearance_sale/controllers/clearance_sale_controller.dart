@@ -77,7 +77,8 @@ class ClearanceSaleController extends ChangeNotifier {
   bool get isConfigLoading => _isConfigLoading;
 
 
-  final DateFormat _dateFormat = DateFormat('d MMM yy, h:mm a');
+  // final DateFormat _dateFormat = DateFormat('d MMM yy, h:mm a');
+  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd, h:mm a');
   DateFormat get dateFormat => _dateFormat;
 
   final TextEditingController discountController = TextEditingController();
@@ -245,7 +246,8 @@ class ClearanceSaleController extends ChangeNotifier {
   }
 
   String formatDurationDateTime(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('MM/dd/yyyy hh:mm:ss a');
+    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm:ss a');
+    // final DateFormat formatter = DateFormat('MM/dd/yyyy hh:mm:ss a');
     return formatter.format(dateTime);
   }
 

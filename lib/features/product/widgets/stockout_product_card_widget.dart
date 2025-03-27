@@ -55,9 +55,11 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                 description: getTranslated('are_you_sure_want_to_delete_this_product', context),
                 onYesPressed: () {
                   Provider.of<ProductController>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
-                    Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
+                    Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+                    // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
                     Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(Provider.of<ProfileController>(Get.context!, listen: false).
-                    userInfoModel!.id.toString(), 1, 'en','', reload: true);
+                    userInfoModel!.id.toString(), 1, 'ko','', reload: true);
+                    // userInfoModel!.id.toString(), 1, 'en','', reload: true);
                   });
                 }
             );
@@ -71,9 +73,11 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                       description: getTranslated('are_you_sure_want_to_delete_this_product', context),
                       onYesPressed: () {
                         Provider.of<ProductController>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
-                          Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
+                          Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+                          // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
                           Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(Provider.of<ProfileController>(Get.context!, listen: false).
-                          userInfoModel!.id.toString(), 1, 'en','', reload: true);
+                          userInfoModel!.id.toString(), 1, 'ko','', reload: true);
+                          // userInfoModel!.id.toString(), 1, 'en','', reload: true);
                         });
                       }
                   );});
@@ -106,9 +110,11 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                       description: getTranslated('are_you_sure_want_to_delete_this_product', context),
                       onYesPressed: () {
                         Provider.of<ProductController>(context, listen:false).deleteProduct(context ,widget.productModel.id).then((value) {
-                          Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
+                          Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+                          // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
                           Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(Provider.of<ProfileController>(Get.context!, listen: false).
-                          userInfoModel!.id.toString(), 1, 'en','', reload: true);
+                          userInfoModel!.id.toString(), 1, 'ko','', reload: true);
+                          // userInfoModel!.id.toString(), 1, 'en','', reload: true);
                         });
                       }
                   );});
@@ -167,27 +173,27 @@ class _StockOutProductWidgetState extends State<StockOutProductWidget> {
                               maxLines: 2, overflow: TextOverflow.ellipsis),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                          Row(children: [
-
-                              Container(padding: const EdgeInsets.fromLTRB(Dimensions.paddingSizeExtraSmall,
-                                    Dimensions.paddingSizeVeryTiny, Dimensions.paddingSizeExtraSmall,
-                                    Dimensions.paddingSizeVeryTiny),
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
-                                  color :widget.productModel.currentStock == 0?
-                                  Theme.of(context).colorScheme.error:
-                                  Theme.of(context).colorScheme.onSecondary),
-
-
-                                child:widget.productModel.currentStock == 0?
-                                Text('${widget.productModel.currentStock.toString()} ${getTranslated('stock_out', context)}'
-                                    , style: robotoRegular.copyWith(color: Colors.white),
-                                    maxLines: 1, overflow: TextOverflow.ellipsis):
-                                Text('${widget.productModel.currentStock.toString()} ${getTranslated('in_stock', context)}'
-                                    , style: robotoRegular.copyWith(color: Colors.white),
-                                    maxLines: 1, overflow: TextOverflow.ellipsis),
-                              ),
-                            ],
-                          ),
+                          // Row(children: [
+                          //
+                          //     Container(padding: const EdgeInsets.fromLTRB(Dimensions.paddingSizeExtraSmall,
+                          //           Dimensions.paddingSizeVeryTiny, Dimensions.paddingSizeExtraSmall,
+                          //           Dimensions.paddingSizeVeryTiny),
+                          //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
+                          //         color :widget.productModel.currentStock == 0?
+                          //         Theme.of(context).colorScheme.error:
+                          //         Theme.of(context).colorScheme.onSecondary),
+                          //
+                          //
+                          //       child:widget.productModel.currentStock == 0?
+                          //       Text('${widget.productModel.currentStock.toString()} ${getTranslated('stock_out', context)}'
+                          //           , style: robotoRegular.copyWith(color: Colors.white),
+                          //           maxLines: 1, overflow: TextOverflow.ellipsis):
+                          //       Text('${widget.productModel.currentStock.toString()} ${getTranslated('in_stock', context)}'
+                          //           , style: robotoRegular.copyWith(color: Colors.white),
+                          //           maxLines: 1, overflow: TextOverflow.ellipsis),
+                          //     ),
+                          //   ],
+                          // ),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
 
                           variationLength != 0?

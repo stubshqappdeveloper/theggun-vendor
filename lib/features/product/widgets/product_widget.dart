@@ -72,19 +72,22 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
           userId = Provider.of<ProfileController>(Get.context!, listen: false).userId;
           Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(
             Provider.of<ProfileController>(Get.context!, listen: false).userId.toString(), 1,
-            Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'US'?'en':
+            Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'KR'?'ko':
+            // Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'US'?'en':
             Provider.of<LocalizationController>(Get.context!, listen: false).locale.countryCode!.toLowerCase(),'');
         } else {
           Provider.of<ProductController>(Get.context!, listen: false).getSellerProductList(
             Provider.of<ProfileController>(Get.context!, listen: false).userId.toString(), 1,
-            Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'US'?'en':
+            Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'KR'?'ko':
+            // Provider.of<LocalizationController>(Get.context!, listen: false).locale.languageCode == 'US'?'en':
             Provider.of<LocalizationController>(Get.context!, listen: false).locale.countryCode!.toLowerCase(),'');
         }
       });
     }else{
       Provider.of<ProductController>(context, listen: false).getSellerProductList(
         Provider.of<ProfileController>(context, listen: false).userId.toString(), 1,
-        Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?'en':
+        Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'KR'?'ko':
+        // Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?'en':
         Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase(),'');
     }
     super.initState();
@@ -102,7 +105,8 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
       onRefresh: () async {
         Provider.of<ProductController>(context, listen: false).getSellerProductList(
             Provider.of<ProfileController>(context, listen: false).userId.toString(), 1,
-            Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?'en':
+            Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'KR'?'ko':
+            // Provider.of<LocalizationController>(context, listen: false).locale.languageCode == 'US'?'en':
             Provider.of<LocalizationController>(context, listen: false).locale.countryCode!.toLowerCase(),'');
       },
       child: Consumer<ProductController>(
@@ -124,7 +128,8 @@ class _ProductViewWidgetState extends State<ProductViewWidget> {
                       offset: prodProvider.sellerProductModel != null ? int.parse(prodProvider.sellerProductModel!.offset.toString()) : null,
                       onPaginate: (int? offset) async {
                         await prodProvider.getSellerProductList(
-                          userId, offset!, 'en', '', reload: false,
+                          userId, offset!, 'ko', '', reload: false,
+                          // userId, offset!, 'en', '', reload: false,
                           minPrice: prodProvider.sellerProductModel?.minPrice,
                           maxPrice: prodProvider.sellerProductModel?.maxPrice,
                           productType: prodProvider.sellerProductModel?.productType?.name,

@@ -60,10 +60,10 @@ dependencies:
   syncfusion_flutter_charts: ^27.1.57
   carousel_slider: ^5.0.0
   flutter_downloader: 1.11.7
-  open_file_plus: ^3.4.1
+#  open_file_plus: ^3.4.1
   open_file_manager: ^1.0.2
   just_the_tooltip: ^0.0.12
-  syncfusion_flutter_pdfviewer: ^26.2.8
+#  syncfusion_flutter_pdfviewer: ^26.2.8
   audioplayers: ^6.0.0
   flutter_xlider: ^3.5.0
   video_player: ^2.9.2

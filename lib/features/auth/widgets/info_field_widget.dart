@@ -29,7 +29,8 @@ class InfoFieldVIewWidget extends StatefulWidget {
 }
 
 class _InfoFieldVIewWidgetState extends State<InfoFieldVIewWidget> {
-  String? _countryDialCode = "+880";
+  // String? _countryDialCode = "+880";
+  String? _countryDialCode = "+82";
   String currency = '',  country = '', selectedTimeZone = '';
   @override
   void initState() {
@@ -112,18 +113,18 @@ class _InfoFieldVIewWidgetState extends State<InfoFieldVIewWidget> {
                           ),
                           margin: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, right: Dimensions.paddingSizeSmall),
                           child: Row(children: [
-                            CodePickerWidget(
-                              onChanged: (CountryCode countryCode) {
-                                _countryDialCode = countryCode.dialCode;
-                                authProvider.setCountryDialCode(_countryDialCode);
-                              },
-                              initialSelection: _countryDialCode,
-                              favorite: [authProvider.countryDialCode!],
-                              showDropDownButton: true,
-                              padding: EdgeInsets.zero,
-                              showFlagMain: true,
-                              textStyle: TextStyle(color: Theme.of(context).textTheme.displayLarge!.color),
-                            ),
+                            // CodePickerWidget(
+                            //   onChanged: (CountryCode countryCode) {
+                            //     _countryDialCode = countryCode.dialCode;
+                            //     authProvider.setCountryDialCode(_countryDialCode);
+                            //   },
+                            //   initialSelection: _countryDialCode,
+                            //   favorite: [authProvider.countryDialCode!],
+                            //   showDropDownButton: true,
+                            //   padding: EdgeInsets.zero,
+                            //   showFlagMain: true,
+                            //   textStyle: TextStyle(color: Theme.of(context).textTheme.displayLarge!.color),
+                            // ),
 
                             Expanded(child: CustomTextFieldWidget(
                               hintText: getTranslated('mobile_hint', context),
@@ -403,24 +404,24 @@ class _InfoFieldVIewWidgetState extends State<InfoFieldVIewWidget> {
                       ),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                      Container(
-                        margin: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, right: Dimensions.paddingSizeSmall,
-                        bottom: Dimensions.paddingSizeSmall),
-                        child: Column(
-                          children: [
-                            TitleWidget(title: getTranslated('last_name', context)!),
-
-                            CustomTextFieldWidget(
-                              border: true,
-                              hintText: getTranslated('last_name_hint', context),
-                              focusNode: authProvider.lastNameNode,
-                              nextNode: authProvider.emailNode,
-                              textInputType: TextInputType.name,
-                              controller: authProvider.lastNameController,
-                              textInputAction: TextInputAction.next,
-                            )
-                          ],
-                        )),
+                      // Container(
+                      //   margin: const EdgeInsets.only(left: Dimensions.paddingSizeSmall, right: Dimensions.paddingSizeSmall,
+                      //   bottom: Dimensions.paddingSizeSmall),
+                      //   child: Column(
+                      //     children: [
+                      //       TitleWidget(title: getTranslated('last_name', context)!),
+                      //
+                      //       CustomTextFieldWidget(
+                      //         border: true,
+                      //         hintText: getTranslated('last_name_hint', context),
+                      //         focusNode: authProvider.lastNameNode,
+                      //         nextNode: authProvider.emailNode,
+                      //         textInputType: TextInputType.name,
+                      //         controller: authProvider.lastNameController,
+                      //         textInputAction: TextInputAction.next,
+                      //       )
+                      //     ],
+                      //   )),
 
                         Padding(
                           padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
