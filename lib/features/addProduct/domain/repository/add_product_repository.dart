@@ -133,7 +133,84 @@ class AddProductRepository implements AddProductRepositoryInterface{
   }
 
   @override
-  Future<ApiResponse> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String,dynamic>>? productImages, String? thumbnail, String? metaImage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token) async {
+  Future<ApiResponse> addVideo(BuildContext context, ImageModel imageForUpload, bool colorActivate) async {
+    http.MultipartRequest request = http.MultipartRequest(
+        'POST', Uri.parse('${AppConstants.baseUrl}${AppConstants.uploadProductImageUri}',
+    ));
+    if (kDebugMode) {
+      print('==video is exist or not=${imageForUpload.image!.path}');
+    }
+    request.headers.addAll(<String, String>{'Authorization': 'Bearer ${Provider.of<AuthController>(context,listen: false).getUserToken()}'});
+    if(Platform.isAndroid || Platform.isIOS && imageForUpload.image != null) {
+      File file = File(imageForUpload.image!.path);
+      // request.files.add(http.MultipartFile('video', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last));
+      request.files.add(http.MultipartFile('media', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last));
+    }
+    Map<String, String> fields = {};
+    fields.addAll(<String, String>{
+      'type': imageForUpload.type!,
+      'color': imageForUpload.color!,
+      'colors_active' : colorActivate.toString()
+    });
+    request.fields.addAll(fields);
+    if (kDebugMode) {
+      print('=====> ${request.url.path}\n${request.fields}');
+    }
+
+
+    http.StreamedResponse response = await request.send();
+    var res = await http.Response.fromStream(response);
+    if (kDebugMode) {
+      print('=====Response body is here==>${res.body}');
+    }
+
+    try {
+      return ApiResponse.withSuccess(Response(statusCode: response.statusCode,
+          requestOptions: RequestOptions(path: ''), statusMessage: response.reasonPhrase,
+          data: res.body));
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+    // http.MultipartRequest request = http.MultipartRequest(
+    //     'POST', Uri.parse('${AppConstants.baseUrl}${AppConstants.uploadProductMediaUri}',
+    // ));
+    // if (kDebugMode) {
+    //   print('==video is exist or not=${imageForUpload.image!.path}');
+    // }
+    // request.headers.addAll(<String, String>{'Authorization': 'Bearer ${Provider.of<AuthController>(context,listen: false).getUserToken()}'});
+    // if(Platform.isAndroid || Platform.isIOS && imageForUpload.image != null) {
+    //   File file = File(imageForUpload.image!.path);
+    //   request.files.add(http.MultipartFile('image', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last));
+    // }
+    // Map<String, String> fields = {};
+    // fields.addAll(<String, String>{
+    //   'type': imageForUpload.type!,
+    //   // 'color': imageForUpload.color!,
+    //   // 'colors_active' : colorActivate.toString()
+    // });
+    // request.fields.addAll(fields);
+    // if (kDebugMode) {
+    //   print('=====> ${request.url.path}\n${request.fields}');
+    // }
+    //
+    //
+    // http.StreamedResponse response = await request.send();
+    // var res = await http.Response.fromStream(response);
+    // if (kDebugMode) {
+    //   print('=====Video Response body is here==>${res.body}');
+    // }
+    //
+    // try {
+    //   return ApiResponse.withSuccess(Response(statusCode: response.statusCode,
+    //       requestOptions: RequestOptions(path: ''), statusMessage: response.reasonPhrase,
+    //       data: res.body));
+    // } catch (e) {
+    //   return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    // }
+  }
+
+  @override
+  Future<ApiResponse> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String,dynamic>>? productImages, String? thumbnail, String? metaImage, String? videoPath, String? videoStorage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token) async {
     dioClient!.dio!.options.headers = {'Content-Type': 'application/json; charset=UTF-8', 'Authorization': 'Bearer ${Provider.of<AuthController>(Get.context!,listen: false).getUserToken()}'};
     Map<String, dynamic> fields = {};
     List<Map<String, dynamic>> colorImage = [];
@@ -174,6 +251,8 @@ class AddProductRepository implements AddProductRepositoryInterface{
       'colors_active': isActiveColor,
       'video_url': addProduct.videoUrl,
       'meta_image':metaImage,
+      'video_file':videoPath,
+      'video_file_storage_type':videoStorage,
       'current_stock':product.currentStock,
       'shipping_cost':product.shippingCost,
       'multiply_qty':product.multiplyWithQuantity,
@@ -251,9 +330,10 @@ class AddProductRepository implements AddProductRepositoryInterface{
           data: fields,
           files: multiPartFiles,
         );
-
+        print("======addProduct1=");
         return ApiResponse.withSuccess(response);
       } catch (e) {
+        print("======addProduct2="+e.toString());
         return ApiResponse.withError(ApiErrorHandler.getMessage(e));
       }
     } else {
@@ -281,7 +361,8 @@ class AddProductRepository implements AddProductRepositoryInterface{
            filename: basename(digitalVariationModel.digitalVariantFiles![key].name),
          );
          multipartBody.add(MultipartWithKey(key: 'digital_files_$key', multipartFile: multiPartFile));
-       }
+         print('--digital_files_'+multiPartFile.filename.toString());
+      }
       });
 
      if(digitalVariationModel.digitalProductPreview != null) {
@@ -290,6 +371,7 @@ class AddProductRepository implements AddProductRepositoryInterface{
          filename: basename(digitalVariationModel.digitalProductPreview!.name),
        );
        multipartBody.add(MultipartWithKey(key: 'preview_file', multipartFile: multiPartFile));
+       print('--preview_file'+multiPartFile.filename.toString());
      }
 
     return multipartBody;

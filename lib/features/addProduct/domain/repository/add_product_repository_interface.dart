@@ -16,7 +16,8 @@ abstract class AddProductRepositoryInterface implements RepositoryInterface{
   Future<ApiResponse> getSubCategoryList();
   Future<ApiResponse> getSubSubCategoryList();
   Future<ApiResponse> addImage(BuildContext context, ImageModel imageForUpload, bool colorActivate);
-  Future<ApiResponse> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String,dynamic>>? productImages, String? thumbnail, String? metaImage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token);
+  Future<ApiResponse> addVideo(BuildContext context, ImageModel imageForUpload, bool colorActivate);
+  Future<ApiResponse> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String,dynamic>>? productImages, String? thumbnail, String? metaImage, String? videoPath, String? videoStorage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token);
   Future<ApiResponse> uploadDigitalProduct(File? filePath, String token);
   Future<ApiResponse> updateProductQuantity(int? productId,int currentStock, List <Variation> variation);
   Future<ApiResponse> updateRestockProductQuantity(int? productId,int currentStock, List <Variation> variation);

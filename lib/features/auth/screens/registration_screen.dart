@@ -244,6 +244,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> with TickerProv
                           showCustomSnackBarWidget(getTranslated('shop_banner_is_required', context), context,  sanckBarType: SnackBarType.warning);
                           }else if(authController.secondaryBanner == null && Provider.of<SplashController>(context,listen: false).configModel!.activeTheme != "default"){
                             showCustomSnackBarWidget(getTranslated('secondary_banner_is_required', context), context,  sanckBarType: SnackBarType.warning);
+                          }else if(authController.membershipTypeController.text.trim().isEmpty){
+                            showCustomSnackBarWidget("Please select membership type", context,  sanckBarType: SnackBarType.warning);
+                          }else if(authController.membershipTypeController.text.trim() == 'Company' && authController.businessLogo == null){
+                            showCustomSnackBarWidget("Please upload business registration certificate", context,  sanckBarType: SnackBarType.warning);
+                          }else if(authController.totalCareerController.text.trim().isEmpty){
+                            showCustomSnackBarWidget("Total career is required", context,  sanckBarType: SnackBarType.warning);
+                          }else if(authController.hoursController.text.trim().isEmpty){
+                            showCustomSnackBarWidget("Consultation hours is required", context,  sanckBarType: SnackBarType.warning);
+                          }else if(authController.introController.text.trim().isEmpty){
+                            showCustomSnackBarWidget("Introduction is required", context,  sanckBarType: SnackBarType.warning);
                           }else{
                             RegisterModel registerModel =  RegisterModel(
                                 fName: authController.firstNameController.text.trim(),
@@ -255,6 +265,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> with TickerProv
                                 shopName: authController.shopNameController.text.trim(),
                                 shopAddress: authController.shopAddressController.text.trim()
                             );
+                            registerModel.membershipType = authController.membershipTypeController.text.trim().toLowerCase();
+                            registerModel.totalCareer = authController.totalCareerController.text.trim();
+                            registerModel.consultationHours = authController.hoursController.text.trim();
+                            registerModel.introduction = authController.introController.text.trim();
                             authController.registration(context, registerModel).then((value){
                               if(value.response!.statusCode == 200){
                                 showCupertinoModalPopup( context: Get.context!,

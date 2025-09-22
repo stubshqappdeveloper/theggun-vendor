@@ -16,5 +16,6 @@ abstract class AuthServiceInterface {
   String getUserEmail();
   String getUserPassword();
   Future<dynamic> clearUserNumberAndPassword();
-  Future<dynamic> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel);
+  Future<dynamic> registrationOld(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel);
+  Future<dynamic> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, XFile? businessLogo, RegisterModel registerModel);
 }

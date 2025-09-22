@@ -37,6 +37,7 @@ class AppConstants {
   static const String subSubCategoryUri = '/api/v1/categories/childes/childes/';
   static const String addProductUri = '/api/v3/seller/products/add';
   static const String uploadProductImageUri = '/api/v3/seller/products/upload-images';
+  static const String uploadProductMediaUri = '/api/v3/seller/products/upload-media';
   static const String updateProductUri = '/api/v3/seller/products/update';
   static const String deleteProductUri = '/api/v3/seller/products/delete';
   static const String editProductUri = '/api/v3/seller/products/edit';

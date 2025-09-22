@@ -33,17 +33,18 @@ import 'package:sixvalley_vendor_app/features/product/controllers/product_contro
 import 'package:sixvalley_vendor_app/features/splash/controllers/splash_controller.dart';
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_snackbar_widget.dart';
 import 'package:sixvalley_vendor_app/features/dashboard/screens/dashboard_screen.dart';
-
-
+import 'package:video_player/video_player.dart';
 
 class AddProductController extends ChangeNotifier {
   final AddProductServiceInterface shopServiceInterface;
 
   AddProductController({required this.shopServiceInterface});
 
-  int _totalQuantity =0;
+  int _totalQuantity = 0;
+
   int get totalQuantity => _totalQuantity;
   String? _unitValue;
+
   String? get unitValue => _unitValue;
   List<AttributeModel>? _attributeList = [];
   int _discountTypeIndex = 0;
@@ -69,8 +70,9 @@ class AddProductController extends ChangeNotifier {
   List<List<bool>> _isDigitalVariationLoading = [];
   MetaSeoInfo? _metaSeoInfo = MetaSeoInfo();
   final TextEditingController maxSnippetController = TextEditingController();
-  final TextEditingController maxImagePreviewController = TextEditingController();
-  XFile ? _digitalProductPreview;
+  final TextEditingController maxImagePreviewController =
+      TextEditingController();
+  XFile? _digitalProductPreview;
   List<String> _selectedAuthors = [];
   List<String> _selectedPublishingHouse = [];
   List<AuthorModel> _authorsList = [];
@@ -79,166 +81,233 @@ class AddProductController extends ChangeNotifier {
 
   int get unitIndex => _unitIndex;
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
+
   int? get categorySelectedIndex => _categorySelectedIndex;
+
   int? get subCategorySelectedIndex => _subCategorySelectedIndex;
+
   int? get subSubCategorySelectedIndex => _subSubCategorySelectedIndex;
   List<int> _selectedColor = [];
-  List<int> get selectedColor =>_selectedColor;
+
+  List<int> get selectedColor => _selectedColor;
   List<int?> _categoryIds = [];
   List<int?> _subCategoryIds = [];
   List<int?> _subSubCategoryIds = [];
+
   List<int?> get categoryIds => _categoryIds;
+
   List<int?> get subCategoryIds => _subCategoryIds;
+
   List<int?> get subSubCategoryIds => _subSubCategoryIds;
   EditProductModel? _editProduct;
+
   EditProductModel? get editProduct => _editProduct;
-  List<VariantTypeModel> _variantTypeList =[];
+  List<VariantTypeModel> _variantTypeList = [];
+
   List<AttributeModel>? get attributeList => _attributeList;
+
   int get discountTypeIndex => _discountTypeIndex;
+
   int get taxTypeIndex => _taxTypeIndex;
+
   String get imagePreviewSelectedType => _imagePreviewSelectedType;
+
   List<CategoryModel>? get categoryList => _categoryList;
+
   List<SubCategory>? get subCategoryList => _subCategoryList;
+
   List<SubSubCategory>? get subSubCategoryList => _subSubCategoryList;
+
   List<BrandModel>? get brandList => _brandList;
   XFile? _pickedLogo;
+  XFile? _pickedVideo;
   XFile? _pickedCover;
   XFile? _pickedMeta;
   XFile? _coveredImage;
-  List <XFile>_productImage = [];
+  List<XFile> _productImage = [];
   bool _isMultiply = false;
+
   bool get isMultiply => _isMultiply;
+
   XFile? get pickedLogo => _pickedLogo;
+
+  XFile? get pickedVideo => _pickedVideo;
+
   XFile? get pickedCover => _pickedCover;
+
   XFile? get pickedMeta => _pickedMeta;
+
   XFile? get coveredImage => _coveredImage;
+
   List<XFile> get productImage => _productImage;
+
   int? get categoryIndex => _categoryIndex;
+
   int? get subCategoryIndex => _subCategoryIndex;
+
   int? get subSubCategoryIndex => _subSubCategoryIndex;
+
   int? get brandIndex => _brandIndex;
+
   List<VariantTypeModel> get variantTypeList => _variantTypeList;
   final picker = ImagePicker();
   List<TextEditingController> _titleControllerList = [];
   List<TextEditingController> _descriptionControllerList = [];
-  List<String?> _colorCodeList =[];
+  List<String?> _colorCodeList = [];
+
   List<String?> get colorCodeList => _colorCodeList;
-  List<TextEditingController>  get titleControllerList=> _titleControllerList;
-  List<TextEditingController> get descriptionControllerList=> _descriptionControllerList;
+
+  List<TextEditingController> get titleControllerList => _titleControllerList;
+
+  List<TextEditingController> get descriptionControllerList =>
+      _descriptionControllerList;
   final TextEditingController _productCode = TextEditingController();
+
   TextEditingController get productCode => _productCode;
   List<FocusNode>? _titleNode;
   List<FocusNode>? _descriptionNode;
+
   List<FocusNode>? get titleNode => _titleNode;
+
   List<FocusNode>? get descriptionNode => _descriptionNode;
   int _productTypeIndex = 0;
+
   int get productTypeIndex => _productTypeIndex;
   int _digitalProductTypeIndex = 0;
+
   int get digitalProductTypeIndex => _digitalProductTypeIndex;
-  File? _selectedFileForImport ;
-  File? get selectedFileForImport =>_selectedFileForImport;
+  File? _selectedFileForImport;
+
+  File? get selectedFileForImport => _selectedFileForImport;
   String? _digitalProductFileName;
-  String?  get digitalProductFileName =>_digitalProductFileName;
+
+  String? get digitalProductFileName => _digitalProductFileName;
   List<bool?> _selectedCategory = [];
+
   List<bool?> get selectedCategory => _selectedCategory;
   int _totalVariantQuantity = 0;
+
   int get totalVariantQuantity => _totalVariantQuantity;
+
   // List<String?>? productReturnImage  = [];
-  List<Map<String, dynamic>>? productReturnImage  = [];
+  List<Map<String, dynamic>>? productReturnImage = [];
   int _variationTotalQuantity = 0;
-  int get variationTotalQuantity  => _variationTotalQuantity;
-  final TextEditingController _totalQuantityController = TextEditingController(text: '1');
+
+  int get variationTotalQuantity => _variationTotalQuantity;
+  final TextEditingController _totalQuantityController =
+      TextEditingController(text: '1');
+
   TextEditingController get totalQuantityController => _totalQuantityController;
   final bool _isCategoryLoading = false;
+
   bool get isCategoryLoading => _isCategoryLoading;
   int? _selectedPageIndex = 0;
+
   int? get selectedPageIndex => _selectedPageIndex;
+
   List<String> get selectedDigitalVariation => _selectedDigitalVariation;
-  List<List<String>> get digitalVariationExtantion => _digitalVariationExtension;
+
+  List<List<String>> get digitalVariationExtantion =>
+      _digitalVariationExtension;
+
   List<List<FileUploadModel>> get variationFileList => _variationFileList;
+
   List<List<bool>> get isDigitalVariationLoading => _isDigitalVariationLoading;
+
   MetaSeoInfo? get metaSeoInfo => _metaSeoInfo;
+
   XFile? get digitalProductPreview => _digitalProductPreview;
+
   List<String>? get selectedAuthors => _selectedAuthors;
+
   List<String>? get selectedPublishingHouse => _selectedPublishingHouse;
+
   List<AuthorModel>? get authorsList => _authorsList;
+
   List<AuthorModel>? get publishingHouseList => _publishingHouseList;
 
   bool _isPreviewLoading = false;
+
   bool get isPreviewLoading => _isPreviewLoading;
 
   List<String> pages = ['general_info', 'variation_setup', 'product_seo'];
   List<String> imagePreviewType = ['large', 'medium', 'small'];
 
-
   void setTitle(int index, String title) {
     _titleControllerList[index].text = title;
   }
-  
+
   void setDescription(int index, String description) {
     _descriptionControllerList[index].text = description;
   }
-  
-  getTitleAndDescriptionList(List<Language> languageList, EditProductModel? edtProduct){
+
+  getTitleAndDescriptionList(
+      List<Language> languageList, EditProductModel? edtProduct) {
     _titleControllerList = [];
     _descriptionControllerList = [];
-    for(int i= 0; i<languageList.length; i++){
-      if(edtProduct != null){
-        if(i==0){
-          _titleControllerList.insert(i,TextEditingController(text: edtProduct.name)) ;
-          _descriptionControllerList.add(TextEditingController(text: edtProduct.details)) ;
-        } else{
+    for (int i = 0; i < languageList.length; i++) {
+      if (edtProduct != null) {
+        if (i == 0) {
+          _titleControllerList.insert(
+              i, TextEditingController(text: edtProduct.name));
+          _descriptionControllerList
+              .add(TextEditingController(text: edtProduct.details));
+        } else {
           for (var lan in edtProduct.translations!) {
-            if(lan.locale == languageList[i].code && lan.key == 'name'){
-              _titleControllerList.add(TextEditingController(text: lan.value)) ;
+            if (lan.locale == languageList[i].code && lan.key == 'name') {
+              _titleControllerList.add(TextEditingController(text: lan.value));
             }
-            if(lan.locale == languageList[i].code && lan.key == 'description'){
-              _descriptionControllerList.add(TextEditingController(text: lan.value));
+            if (lan.locale == languageList[i].code &&
+                lan.key == 'description') {
+              _descriptionControllerList
+                  .add(TextEditingController(text: lan.value));
 
               debugPrint('--------description---------${lan.value}');
-
             }
           }
         }
-      }
-      else{
+      } else {
         _titleControllerList.add(TextEditingController());
         _descriptionControllerList.add(TextEditingController());
       }
     }
-    if(edtProduct != null){
-      if(_titleControllerList.length < languageList.length) {
-        int l1 = languageList.length-_titleControllerList.length;
-        for(int i=0; i<l1; i++) {
-          _titleControllerList.add(TextEditingController(text: editProduct!.name));
+    if (edtProduct != null) {
+      if (_titleControllerList.length < languageList.length) {
+        int l1 = languageList.length - _titleControllerList.length;
+        for (int i = 0; i < l1; i++) {
+          _titleControllerList
+              .add(TextEditingController(text: editProduct!.name));
           debugPrint('--------name---------${editProduct!.name}');
         }
       }
-      if(_descriptionControllerList.length < languageList.length) {
-        int l0 = languageList.length-_descriptionControllerList.length;
-        for(int i=0; i<l0; i++) {
-          _descriptionControllerList.add(TextEditingController(text: editProduct!.details));
+      if (_descriptionControllerList.length < languageList.length) {
+        int l0 = languageList.length - _descriptionControllerList.length;
+        for (int i = 0; i < l0; i++) {
+          _descriptionControllerList
+              .add(TextEditingController(text: editProduct!.details));
           debugPrint('--------description---------${editProduct!.details}');
         }
       }
-    }else {
-      if(_titleControllerList.length < languageList.length) {
-        int l = languageList.length-_titleControllerList.length;
-        for(int i=0; i<l; i++) {
+    } else {
+      if (_titleControllerList.length < languageList.length) {
+        int l = languageList.length - _titleControllerList.length;
+        for (int i = 0; i < l; i++) {
           _titleControllerList.add(TextEditingController());
         }
       }
-      if(_descriptionControllerList.length < languageList.length) {
-        int l2 = languageList.length-_descriptionControllerList.length;
-        for(int i=0; i<l2; i++) {
+      if (_descriptionControllerList.length < languageList.length) {
+        int l2 = languageList.length - _descriptionControllerList.length;
+        for (int i = 0; i < l2; i++) {
           _descriptionControllerList.add(TextEditingController());
         }
       }
     }
   }
 
-  Future <void> getAttributeList(BuildContext context, Product? product, String language) async {
+  Future<void> getAttributeList(
+      BuildContext context, Product? product, String language) async {
     _attributeList = null;
     _discountTypeIndex = 0;
     // _categoryIndex = 0;
@@ -246,109 +315,127 @@ class AddProductController extends ChangeNotifier {
     // _subSubCategoryIndex = 0;
     _variationTotalQuantity = 0;
     _pickedLogo = null;
+    _pickedVideo = null;
     _pickedMeta = null;
     _pickedCover = null;
     _selectedColor = [];
     _variantTypeList = [];
     debugPrint('------------------list-------${_variantTypeList.length}');
-    ApiResponse response = await shopServiceInterface.getAttributeList(language);
+    ApiResponse response =
+        await shopServiceInterface.getAttributeList(language);
     if (response.response != null && response.response!.statusCode == 200) {
       _attributeList = [];
-      withColor =[];
+      withColor = [];
       // _attributeList!.add(AttributeModel(attribute: Attr(id : 0, name:'Color'), active: false,
-      _attributeList!.add(AttributeModel(attribute: Attr(id : 0, name:'색상'), active: false,
-          controller: TextEditingController(), variants: []));
+      _attributeList!.add(AttributeModel(
+          attribute: Attr(id: 0, name: '색상'),
+          active: false,
+          controller: TextEditingController(),
+          variants: []));
       response.response!.data.forEach((attribute) {
-        if (product != null && product.attributes!=null && product.attributes!.isNotEmpty) {
-          bool active = product.attributes!.contains(Attr.fromJson(attribute).id);
+        if (product != null &&
+            product.attributes != null &&
+            product.attributes!.isNotEmpty) {
+          bool active =
+              product.attributes!.contains(Attr.fromJson(attribute).id);
           if (kDebugMode) {
-            debugPrint('--------${Attr.fromJson(attribute).id}/$active/${product.attributes}');
+            debugPrint(
+                '--------${Attr.fromJson(attribute).id}/$active/${product.attributes}');
           }
           List<String> options = [];
-          if (active && product.choiceOptions != null && product.choiceOptions!.isNotEmpty) {
-            options.addAll(product.choiceOptions![product.attributes!.indexOf(Attr.fromJson(attribute).id)].options!);
+          if (active &&
+              product.choiceOptions != null &&
+              product.choiceOptions!.isNotEmpty) {
+            options.addAll(product
+                .choiceOptions![
+                    product.attributes!.indexOf(Attr.fromJson(attribute).id)]
+                .options!);
           }
           _attributeList!.add(AttributeModel(
             attribute: Attr.fromJson(attribute),
             active: active,
-            controller: TextEditingController(), variants: options,
+            controller: TextEditingController(),
+            variants: options,
           ));
         } else {
-          _attributeList!.add(
-              AttributeModel(attribute: Attr.fromJson(attribute), active: false,
-                controller: TextEditingController(), variants: [],
-              ));
+          _attributeList!.add(AttributeModel(
+            attribute: Attr.fromJson(attribute),
+            active: false,
+            controller: TextEditingController(),
+            variants: [],
+          ));
         }
       });
     } else {
-      ApiChecker.checkApi( response);
+      ApiChecker.checkApi(response);
     }
-   notifyListeners();
+    notifyListeners();
   }
 
-
-  void calculateVariationQuantity(){
-    if(_variantTypeList.isNotEmpty) {
+  void calculateVariationQuantity() {
+    if (_variantTypeList.isNotEmpty) {
       _variationTotalQuantity = 0;
-      for(int i=0; i<_variantTypeList.length; i++) {
-        _variationTotalQuantity = _variationTotalQuantity + int.parse(_variantTypeList[i].qtyController.text);
+      for (int i = 0; i < _variantTypeList.length; i++) {
+        _variationTotalQuantity = _variationTotalQuantity +
+            int.parse(_variantTypeList[i].qtyController.text);
       }
     }
     _totalQuantityController.text = _variationTotalQuantity.toString();
     notifyListeners();
   }
 
-  void setAttributeItemList(int index){
+  void setAttributeItemList(int index) {
     _attributeList![index].active = true;
   }
 
-  void removeImage(int index,bool fromColor){
-    if(fromColor){
+  void removeImage(int index, bool fromColor) {
+    if (fromColor) {
       if (kDebugMode) {
-        debugPrint('==$index/${withColor[index].image}/${withColor[index].color}');
+        debugPrint(
+            '==$index/${withColor[index].image}/${withColor[index].color}');
       }
       withColor[index].image = null;
-    }else{
+    } else {
       withoutColor.removeAt(index);
     }
     notifyListeners();
   }
 
-
-  void setAttribute(){
+  void setAttribute() {
     _attributeList![0].active = true;
   }
-  String discountType= 'flat';
+
+  String discountType = 'flat';
 
   void setDiscountTypeIndex(int index, bool notify) {
     _discountTypeIndex = index;
-    if(_discountTypeIndex == 0){
+    if (_discountTypeIndex == 0) {
       discountType = 'percent';
-    }else{
+    } else {
       discountType = 'flat';
     }
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
-  
+
   void setTaxTypeIndex(int index, bool notify) {
     _taxTypeIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
   void setImagePreviewType(String type, bool notify) {
     _imagePreviewSelectedType = type;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
-  void toggleAttribute(BuildContext context,int index, Product? product) {
+  void toggleAttribute(BuildContext context, int index, Product? product) {
     _attributeList![index].active = !_attributeList![index].active;
-    generateVariantTypes(context,product);
+    generateVariantTypes(context, product);
     notifyListeners();
   }
 
@@ -357,51 +444,54 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addVariant(BuildContext context, int index, String? variant, Product? product, bool notify) {
+  void addVariant(BuildContext context, int index, String? variant,
+      Product? product, bool notify) {
     _attributeList![index].variants.add(variant);
-    generateVariantTypes(context,product);
-    if(notify) {
+    generateVariantTypes(context, product);
+    if (notify) {
       notifyListeners();
     }
   }
-  void addColorCode(String? colorCode, {int? index}){
-    if(index == 0){
+
+  void addColorCode(String? colorCode, {int? index}) {
+    if (index == 0) {
       _colorCodeList = [];
       withColor = [];
     }
     _colorCodeList.add(colorCode);
     withColor.add(ImageModel(color: colorCode));
     notifyListeners();
-
   }
-  void removeColorCode(int index){
+
+  void removeColorCode(int index) {
     _colorCodeList.removeAt(index);
     withColor.removeAt(index);
     notifyListeners();
   }
-  
-  void removeVariant(BuildContext context,int mainIndex, int index, Product? product) {
+
+  void removeVariant(
+      BuildContext context, int mainIndex, int index, Product? product) {
     _attributeList![mainIndex].variants.removeAt(index);
     generateVariantTypes(context, product);
     notifyListeners();
   }
-  
+
   ///Move to Add Product Directory
   Future<void> getBrandList(BuildContext context, String language) async {
     ApiResponse response = await shopServiceInterface.getBrandList(language);
     if (response.response?.statusCode == 200) {
       _brandList = [];
-      response.response!.data.forEach((brand) => _brandList!.add(BrandModel.fromJson(brand)));
+      response.response!.data
+          .forEach((brand) => _brandList!.add(BrandModel.fromJson(brand)));
     } else {
       ApiChecker.checkApi(response);
     }
 
     notifyListeners();
-
   }
 
   ///Move to pos Directory
-  void setSelectedCategoryForFilter(int index, bool? selected){
+  void setSelectedCategoryForFilter(int index, bool? selected) {
     _selectedCategory[index] = selected;
     notifyListeners();
   }
@@ -412,16 +502,17 @@ class AddProductController extends ChangeNotifier {
   }
 
   ///Move to Product List
-  Future<void> getCategoryList(BuildContext context, Product? product, String language) async {
+  Future<void> getCategoryList(
+      BuildContext context, Product? product, String language) async {
     log("====category call==> ");
-    _categoryIds =[];
-    _subCategoryIds =[];
-    _subSubCategoryIds =[];
+    _categoryIds = [];
+    _subCategoryIds = [];
+    _subSubCategoryIds = [];
     _categoryIds.add(0);
     _subCategoryIds.add(0);
     _subSubCategoryIds.add(0);
     _categoryIndex = 0;
-    _colorCodeList =[];
+    _colorCodeList = [];
     _selectedCategory = [];
     // if(_categoryList != null && _categoryList!.isNotEmpty){
     //   notifyListeners();
@@ -429,25 +520,38 @@ class AddProductController extends ChangeNotifier {
     ApiResponse response = await shopServiceInterface.getCategoryList(language);
     if (response.response != null && response.response!.statusCode == 200) {
       _categoryList = [];
-      response.response!.data.forEach((category) => _categoryList!.add(CategoryModel.fromJson(category)));
+      response.response!.data.forEach(
+          (category) => _categoryList!.add(CategoryModel.fromJson(category)));
       _categoryIndex = 0;
 
-      for(int index = 0; index < _categoryList!.length; index++) {
+      for (int index = 0; index < _categoryList!.length; index++) {
         _categoryIds.add(_categoryList![index].id);
         _selectedCategory.add(false);
       }
 
-      if(product != null && product.categoryIds != null &&product.categoryIds!.isNotEmpty){
-        setCategoryIndex(_categoryIds.indexOf(int.parse(product.categoryIds![0].id!)), false);
-        getSubCategoryList(Get.context!,_categoryIds.indexOf(int.parse(product.categoryIds![0].id!)), false, product);
+      if (product != null &&
+          product.categoryIds != null &&
+          product.categoryIds!.isNotEmpty) {
+        setCategoryIndex(
+            _categoryIds.indexOf(int.parse(product.categoryIds![0].id!)),
+            false);
+        getSubCategoryList(
+            Get.context!,
+            _categoryIds.indexOf(int.parse(product.categoryIds![0].id!)),
+            false,
+            product);
         if (_subCategoryList != null && _subCategoryList!.isNotEmpty) {
           for (int index = 0; index < _subCategoryList!.length; index++) {
             _subCategoryIds.add(_subCategoryList![index].id);
           }
 
-          if(product.categoryIds!.length>1){
-            setSubCategoryIndex(_subCategoryIds.indexOf(int.parse(product.categoryIds![1].id!)), false);
-            getSubSubCategoryList(_subCategoryIds.indexOf(int.parse(product.categoryIds![1].id!)), false);
+          if (product.categoryIds!.length > 1) {
+            setSubCategoryIndex(
+                _subCategoryIds.indexOf(int.parse(product.categoryIds![1].id!)),
+                false);
+            getSubSubCategoryList(
+                _subCategoryIds.indexOf(int.parse(product.categoryIds![1].id!)),
+                false);
           }
         }
 
@@ -455,9 +559,15 @@ class AddProductController extends ChangeNotifier {
           for (int index = 0; index < _subSubCategoryList!.length; index++) {
             _subSubCategoryIds.add(_subSubCategoryList![index].id);
           }
-          if(product.categoryIds!.length>2){
-            setSubSubCategoryIndex(_subSubCategoryIds.indexOf(int.parse(product.categoryIds![2].id!)), false);
-            setSubSubCategoryIndex(_subSubCategoryIds.indexOf(int.parse(product.categoryIds![2].id!)), false);
+          if (product.categoryIds!.length > 2) {
+            setSubSubCategoryIndex(
+                _subSubCategoryIds
+                    .indexOf(int.parse(product.categoryIds![2].id!)),
+                false);
+            setSubSubCategoryIndex(
+                _subSubCategoryIds
+                    .indexOf(int.parse(product.categoryIds![2].id!)),
+                false);
           }
         }
       }
@@ -467,15 +577,15 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-  Future<void> getSubCategoryList(BuildContext context, int? selectedIndex, bool notify, Product? product) async {
+  Future<void> getSubCategoryList(BuildContext context, int? selectedIndex,
+      bool notify, Product? product) async {
     _subCategoryIndex = 0;
-    if(categoryIndex != 0) {
+    if (categoryIndex != 0) {
       _subCategoryList = [];
-      _subCategoryList!.addAll(_categoryList![categoryIndex!-1].subCategories!);
+      _subCategoryList!
+          .addAll(_categoryList![categoryIndex! - 1].subCategories!);
     }
-    if(notify){
+    if (notify) {
       _subCategoryIds = [];
       _subCategoryIds.add(0);
       _subCategoryIndex = 0;
@@ -490,15 +600,19 @@ class AddProductController extends ChangeNotifier {
   }
 
   ///Move to Add Product Directory
-  Future<void> getEditProduct(BuildContext context,int? id) async {
+  Future<void> getEditProduct(BuildContext context, int? id) async {
     _editProduct = null;
     ApiResponse response = await shopServiceInterface.getEditProduct(id);
     if (response.response != null && response.response!.statusCode == 200) {
       _editProduct = EditProductModel.fromJson(response.response!.data);
-      if(_editProduct?.seoInfo != null) {
+      if (_editProduct?.seoInfo != null) {
         convertSeoInfoToMetaSeoInfo(_editProduct!.seoInfo!);
       }
-      getTitleAndDescriptionList(Provider.of<SplashController>(Get.context!,listen: false).configModel!.languageList!, _editProduct);
+      getTitleAndDescriptionList(
+          Provider.of<SplashController>(Get.context!, listen: false)
+              .configModel!
+              .languageList!,
+          _editProduct);
       initDigitalProductVariation(_editProduct!);
     } else {
       ApiChecker.checkApi(response);
@@ -530,43 +644,50 @@ class AddProductController extends ChangeNotifier {
     _variationFileList = [];
     _isDigitalVariationLoading = [];
 
-    if(editProduct.digitalProductFileTypes != null) {
-      for(int i=0; i< editProduct.digitalProductFileTypes!.length; i++) {
+    if (editProduct.digitalProductFileTypes != null) {
+      for (int i = 0; i < editProduct.digitalProductFileTypes!.length; i++) {
         _digitalVariationExtension.add([]);
         extentionControllerList.add(TextEditingController());
         editVariantKeys.add([]);
         _variationFileList.add([]);
         _isDigitalVariationLoading.add([]);
-        _selectedDigitalVariation.add(capitalizeFirstLetter(editProduct.digitalProductFileTypes![i]));
+        _selectedDigitalVariation.add(
+            capitalizeFirstLetter(editProduct.digitalProductFileTypes![i]));
       }
     }
 
-    if(editProduct.digitalProductExtensions != null){
+    if (editProduct.digitalProductExtensions != null) {
       editProduct.digitalProductExtensions!.forEach((key, value) {
-        for(int i=0; i<_selectedDigitalVariation.length; i++){
-          if(key.toLowerCase() == _selectedDigitalVariation[i].toLowerCase()){
+        for (int i = 0; i < _selectedDigitalVariation.length; i++) {
+          if (key.toLowerCase() == _selectedDigitalVariation[i].toLowerCase()) {
             _digitalVariationExtension[i].addAll(value);
           }
         }
       });
     }
 
-
-    for (int i=0; i<_selectedDigitalVariation.length; i++) {
-      for(int index = 0; index < _digitalVariationExtension[i].length; index++) {
-        String ext = removeSpacesAndLowercase(_digitalVariationExtension[i][index]);
-        editVariantKeys[i].add('${_selectedDigitalVariation[i].toLowerCase()}-$ext');
+    for (int i = 0; i < _selectedDigitalVariation.length; i++) {
+      for (int index = 0;
+          index < _digitalVariationExtension[i].length;
+          index++) {
+        String ext =
+            removeSpacesAndLowercase(_digitalVariationExtension[i][index]);
+        editVariantKeys[i]
+            .add('${_selectedDigitalVariation[i].toLowerCase()}-$ext');
       }
     }
 
-    for (int i=0; i<_selectedDigitalVariation.length; i++) {
-      for(int index = 0; index < editVariantKeys[i].length; index++) {
-        for(int j=0; j < editProduct.digitalVariation!.length;  j++) {
-          if(editVariantKeys[i][index] == editProduct.digitalVariation![j].variantKey){
+    for (int i = 0; i < _selectedDigitalVariation.length; i++) {
+      for (int index = 0; index < editVariantKeys[i].length; index++) {
+        for (int j = 0; j < editProduct.digitalVariation!.length; j++) {
+          if (editVariantKeys[i][index] ==
+              editProduct.digitalVariation![j].variantKey) {
             _variationFileList[i].add(
               FileUploadModel(
-                priceController: TextEditingController(text: editProduct.digitalVariation![j].price.toString()),
-                skuController: TextEditingController(text: editProduct.digitalVariation![j].sku.toString()),
+                priceController: TextEditingController(
+                    text: editProduct.digitalVariation![j].price.toString()),
+                skuController: TextEditingController(
+                    text: editProduct.digitalVariation![j].sku.toString()),
                 file: null,
                 fileName: editProduct.digitalVariation![j].file?.toString(),
               ),
@@ -578,9 +699,8 @@ class AddProductController extends ChangeNotifier {
     }
   }
 
-
-  DigitalVariationModel  getDigitalVariationModel() {
-    DigitalVariationModel  digitalvariationModel = DigitalVariationModel();
+  DigitalVariationModel getDigitalVariationModel() {
+    DigitalVariationModel digitalvariationModel = DigitalVariationModel();
     digitalvariationModel.variationType = [];
     digitalvariationModel.digitalVariantKey = [];
     digitalvariationModel.digitalVariantFiles = {};
@@ -589,69 +709,61 @@ class AddProductController extends ChangeNotifier {
     digitalvariationModel.digitalVariantKeyMap = {};
     digitalvariationModel.variationKeys = [];
 
-    digitalvariationModel.variationType = processList(_selectedDigitalVariation);
+    digitalvariationModel.variationType =
+        processList(_selectedDigitalVariation);
 
     digitalvariationModel.variationKeys?.addAll(_digitalVariationExtension);
 
-    for (int i=0; i<digitalvariationModel.variationType!.length; i++) {
-      for(int index = 0; index < _digitalVariationExtension[i].length; index++) {
-        String ext = removeSpacesAndLowercase(_digitalVariationExtension[i][index]);
-        digitalvariationModel.digitalVariantKey?.add('${digitalvariationModel.variationType![i]}_$ext');
+    for (int i = 0; i < digitalvariationModel.variationType!.length; i++) {
+      for (int index = 0;
+          index < _digitalVariationExtension[i].length;
+          index++) {
+        String ext =
+            removeSpacesAndLowercase(_digitalVariationExtension[i][index]);
+        digitalvariationModel.digitalVariantKey
+            ?.add('${digitalvariationModel.variationType![i]}_$ext');
       }
     }
 
-
     int count = -1;
-    for (int i=0; i<digitalvariationModel.variationType!.length; i++) {
-      for(int index = 0; index < _variationFileList[i].length; index++) {
+    for (int i = 0; i < digitalvariationModel.variationType!.length; i++) {
+      for (int index = 0; index < _variationFileList[i].length; index++) {
         count++;
         String key = digitalvariationModel.digitalVariantKey![count];
-        digitalvariationModel.digitalVariantFiles?.addAll(
-            <String,dynamic>{
-              key : _variationFileList[i][index].file
-            }
-        );
-        if(i==1 && index ==0){
+        digitalvariationModel.digitalVariantFiles
+            ?.addAll(<String, dynamic>{key: _variationFileList[i][index].file});
+        if (i == 1 && index == 0) {
           debugPrint("=======>>${digitalvariationModel.digitalVariantFiles}");
         }
 
-        digitalvariationModel.digitalVariantSku?.addAll(
-            <String,dynamic>{
-              key : _variationFileList[i][index].skuController!.text
-            }
-        );
+        digitalvariationModel.digitalVariantSku?.addAll(<String, dynamic>{
+          key: _variationFileList[i][index].skuController!.text
+        });
 
-        digitalvariationModel.digitalVariantPrice?.addAll(
-            <String,dynamic>{
-              key : _variationFileList[i][index].priceController!.text
-            }
-        );
+        digitalvariationModel.digitalVariantPrice?.addAll(<String, dynamic>{
+          key: _variationFileList[i][index].priceController!.text
+        });
 
-        digitalvariationModel.digitalVariantKeyMap?.addAll(
-            <String,dynamic>{
-              key : replaceUnderscoreWithHyphen(key),
-            }
-        );
+        digitalvariationModel.digitalVariantKeyMap?.addAll(<String, dynamic>{
+          key: replaceUnderscoreWithHyphen(key),
+        });
       }
     }
     return digitalvariationModel;
   }
 
-
-
-
-
   Future<void> getSubSubCategoryList(int? selectedIndex, bool notify) async {
     _subSubCategoryIndex = 0;
-    if(_subCategoryIndex != 0) {
+    if (_subCategoryIndex != 0) {
       _subSubCategoryList = [];
-      _subSubCategoryList!.addAll(subCategoryList![_subCategoryIndex!-1].subSubCategories!);
+      _subSubCategoryList!
+          .addAll(subCategoryList![_subCategoryIndex! - 1].subSubCategories!);
     }
-    if(notify){
+    if (notify) {
       _subSubCategoryIds = [];
       _subSubCategoryIds.add(0);
       _subSubCategoryIndex = 0;
-      if(_subSubCategoryList!.isNotEmpty){
+      if (_subSubCategoryList!.isNotEmpty) {
         for (var element in _subSubCategoryList!) {
           _subSubCategoryIds.add(element.id);
         }
@@ -660,6 +772,7 @@ class AddProductController extends ChangeNotifier {
     }
   }
 
+  late ImageModel video;
   late ImageModel thumbnail;
   late ImageModel metaImage;
   List<ImageModel> withColor = [];
@@ -670,154 +783,204 @@ class AddProductController extends ChangeNotifier {
   List<ColorImage> colorImageObject = [];
   int totalPickedImage = 0;
 
-
-  void pickImage(bool isLogo,bool isMeta, bool isRemove, int? index, {bool update = false, bool isAddProduct = false}) async {
-    if(isRemove) {
+  void pickImage(bool isLogo, bool isMeta, bool isRemove, int? index,
+      {bool update = false, bool isAddProduct = false}) async {
+    if (isRemove) {
       totalPickedImage--;
       _pickedLogo = null;
+      // _pickedVideo = null;
       _pickedCover = null;
       _pickedMeta = null;
       _coveredImage = null;
       _productImage = [];
-      withColor =[];
-      withoutColor =[];
-    }else {
-      totalPickedImage ++;
+      withColor = [];
+      withoutColor = [];
+    } else {
+      totalPickedImage++;
       if (isLogo) {
-        _pickedLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if(_pickedLogo != null){
-          thumbnail = ImageModel(type: 'thumbnail', color: '', image: _pickedLogo);
-          if(isAddProduct){
+        _pickedLogo =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (_pickedLogo != null) {
+          thumbnail =
+              ImageModel(type: 'thumbnail', color: '', image: _pickedLogo);
+          if (isAddProduct) {
             metaImage = ImageModel(type: 'meta', color: '', image: _pickedLogo);
             _pickedMeta = pickedLogo;
           }
         }
-
-      } else if(isMeta){
-        _pickedMeta = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if(_pickedMeta != null){
+      } else if (isMeta) {
+        _pickedMeta =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
+        if (_pickedMeta != null) {
           metaImage = ImageModel(type: 'meta', color: '', image: _pickedMeta);
         }
-
-      }else {
-        _coveredImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else {
+        _coveredImage =
+            await ImagePicker().pickImage(source: ImageSource.gallery);
         if (_coveredImage != null && index != null) {
-          if(update) {
-            totalPickedImage --;
+          if (update) {
+            totalPickedImage--;
           }
-          withColor[index].image =  _coveredImage;
-          withColor[index].type =  'product';
-        }else if(_coveredImage != null) {
-          withoutColor.add(ImageModel(image: _coveredImage, type: 'product',color: ''));
+          withColor[index].image = _coveredImage;
+          withColor[index].type = 'product';
+        } else if (_coveredImage != null) {
+          withoutColor.add(
+              ImageModel(image: _coveredImage, type: 'product', color: ''));
         }
       }
     }
 
     notifyListeners();
+  }
 
+  VideoPlayerController? videoPlayerController;
+  Future<void>? initializeVideoPlayerFuture;
+
+  void pickVideo(bool isLogo, bool isMeta, bool isRemove, int? index,
+      {bool update = false, bool isAddProduct = false}) async {
+    // if(isRemove) {
+    // totalPickedImage--;
+    // _pickedLogo = null;
+    _pickedVideo = null;
+    // _pickedCover = null;
+    // _pickedMeta = null;
+    // _coveredImage = null;
+    // _productImage = [];
+    // withColor =[];
+    // withoutColor =[];
+    // } else {
+    // totalPickedImage ++;
+    _pickedVideo = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (_pickedVideo != null) {
+      // video = ImageModel(type: 'video', color: '', image: _pickedVideo);
+      video = ImageModel(type: 'video', color: '', image: _pickedVideo);
+
+      // Dispose old controller if exists
+      if (videoPlayerController != null) {
+        videoPlayerController?.dispose();
+      }
+
+      final file = File(_pickedVideo!.path);
+      videoPlayerController = VideoPlayerController.file(file);
+      initializeVideoPlayerFuture = videoPlayerController!.initialize();
+      videoPlayerController!.setLooping(true);
+    }
+    // }
+
+    notifyListeners();
   }
 
   void setSelectedColorIndex(int index, bool notify) {
-    if(!_selectedColor.contains(index)) {
+    if (!_selectedColor.contains(index)) {
       _selectedColor.add(index);
-      if(notify) {
+      if (notify) {
         notifyListeners();
       }
     }
     notifyListeners();
   }
 
-
   void setBrandIndex(int? index, bool notify) {
     _brandIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
+
   void setUnitIndex(int index, bool notify) {
     _unitIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
   void setCategoryIndex(int? index, bool notify) {
     _categoryIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
   void setSubCategoryIndex(int? index, bool notify) {
     _subCategoryIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
+
   void setSubSubCategoryIndex(int? index, bool notify) {
     _subSubCategoryIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
-
-  void setStringImage(int index, String image, String colorCode, {String? path}) {
+  void setStringImage(int index, String image, String colorCode,
+      {String? path}) {
     withColor[index].imageString = image;
-    withColor[index].colorImage = ColorImage(color: colorCode, imageName: ImageFullUrl(key: image, path: path));
+    withColor[index].colorImage = ColorImage(
+        color: colorCode, imageName: ImageFullUrl(key: image, path: path));
   }
 
-
   int totalUploaded = 0;
-  void initUpload(){
+
+  void initUpload() {
     totalUploaded = 0;
     notifyListeners();
   }
 
-  void initColorCode(){
+  void initColorCode() {
     _colorCodeList = [];
     withColor = [];
   }
 
-  Future addProductImage(BuildContext context, ImageModel imageForUpload, Function callback, {bool update =false, int? index, int? productId}) async {
+  Future addProductImage(
+      BuildContext context, ImageModel imageForUpload, Function callback,
+      {bool update = false, int? index, int? productId}) async {
     _isLoading = true;
     notifyListeners();
 
-    ApiResponse response = await shopServiceInterface.addImage(context, imageForUpload, attributeList![0].active);
+    ApiResponse response = await shopServiceInterface.addImage(
+        context, imageForUpload, attributeList![0].active);
 
-    if(response.response != null && response.response!.statusCode == 200) {
-      totalUploaded ++;
+    if (response.response != null && response.response!.statusCode == 200) {
+      totalUploaded++;
       _isLoading = false;
       Map map = jsonDecode(response.response!.data);
       String? name = map["image_name"];
+      if (name == null || name.isEmpty || name.toLowerCase() == "null") {
+        name = map["file_name"].toString();
+      }
       String? type = map["type"];
-      if(type == 'product'){
-        if(map["image_name"] != null && map["image_name"] != "null"){
+      if (type == 'product') {
+        if (map["image_name"] != null && map["image_name"] != "null") {
           productReturnImage?.add({
-            "image_name" : name,
-            "storage" : map['storage'] ?? "public",
+            "image_name": name,
+            "storage": map['storage'] ?? "public",
           });
         }
 
-        if(attributeList![0].active){
-
-          if(update && map["color_image"]['color'] != null && index != null && (index < imagesWithColorForUpdate.length)){
-
-
+        if (attributeList![0].active) {
+          if (update &&
+              map["color_image"]['color'] != null &&
+              index != null &&
+              (index < imagesWithColorForUpdate.length)) {
             String? previousColor = map["color_image"]['color'];
 
-            int imageIndex = colorImageObject.indexWhere((v) => v.color == previousColor);
+            int imageIndex =
+                colorImageObject.indexWhere((v) => v.color == previousColor);
 
-            if(imageIndex != -1) {
+            if (imageIndex != -1) {
               colorImageObject[imageIndex] = ColorImage(
                 color: previousColor,
                 imageName: ImageFullUrl(key: name),
                 storage: map['storage'],
               );
-            }else {
+            } else {
               int i = withColor.indexWhere((v) => v.color == previousColor);
+
               ///if previous color remove form previous screen and add new that time it will return -1
-              if(i == -1) {
+              if (i == -1) {
                 colorImageObject.add(ColorImage(
                   color: previousColor,
                   imageName: ImageFullUrl(key: name),
@@ -825,21 +988,166 @@ class AddProductController extends ChangeNotifier {
                 ));
               }
             }
-
-          }else{
-            colorImageObject.add(ColorImage(color:  map['color_image'] != null ? map['color_image']['color'] : null, imageName: ImageFullUrl(key: name), storage: map['storage']));
+          } else {
+            colorImageObject.add(ColorImage(
+                color: map['color_image'] != null
+                    ? map['color_image']['color']
+                    : null,
+                imageName: ImageFullUrl(key: name),
+                storage: map['storage']));
           }
         }
       }
 
-      callback(true, name, type, map['color_image'] != null ? map['color_image']['color'] : null);
+      callback(true, name, type,
+          map['color_image'] != null ? map['color_image']['color'] : null);
       notifyListeners();
-    }else {
+    } else {
       _isLoading = false;
-      ApiChecker.checkApi( response);
-      showCustomSnackBarWidget(getTranslated('image_upload_failed', Get.context!), Get.context!);
+      ApiChecker.checkApi(response);
+      showCustomSnackBarWidget(
+          getTranslated('image_upload_failed', Get.context!), Get.context!);
     }
     notifyListeners();
+  }
+
+  Future addProductVideo(
+      BuildContext context, ImageModel imageForUpload, Function callback,
+      {bool update = false, int? index, int? productId}) async {
+    _isLoading = true;
+    notifyListeners();
+
+    ApiResponse response = await shopServiceInterface.addVideo(
+        context, imageForUpload, attributeList![0].active);
+
+    if (response.response != null && response.response!.statusCode == 200) {
+      totalUploaded++;
+      _isLoading = false;
+      Map map = jsonDecode(response.response!.data);
+
+      // String? name = "";
+      // if (map!=null && map["video_file_full_url"] != null && map["video_file_full_url"]['path'] != null) {
+      //   name = map["video_file_full_url"]['path'].toString();
+      // }
+      // String? type = "video";
+
+      String? name = map["image_name"].toString();
+      if (name == null || name.isEmpty || name.toLowerCase() == "null") {
+        name = map["file_name"].toString();
+      }
+      String? type = map["type"];
+      // if(type == 'product'){
+      //   if(map["image_name"] != null && map["image_name"] != "null"){
+      //     productReturnImage?.add({
+      //       "image_name" : name,
+      //       "storage" : map['storage'] ?? "public",
+      //     });
+      //   }
+      //
+      //   if(attributeList![0].active){
+      //
+      //     if(update && map["color_image"]['color'] != null && index != null && (index < imagesWithColorForUpdate.length)){
+      //
+      //
+      //       String? previousColor = map["color_image"]['color'];
+      //
+      //       int imageIndex = colorImageObject.indexWhere((v) => v.color == previousColor);
+      //
+      //       if(imageIndex != -1) {
+      //         colorImageObject[imageIndex] = ColorImage(
+      //           color: previousColor,
+      //           imageName: ImageFullUrl(key: name),
+      //           storage: map['storage'],
+      //         );
+      //       }else {
+      //         int i = withColor.indexWhere((v) => v.color == previousColor);
+      //         ///if previous color remove form previous screen and add new that time it will return -1
+      //         if(i == -1) {
+      //           colorImageObject.add(ColorImage(
+      //             color: previousColor,
+      //             imageName: ImageFullUrl(key: name),
+      //             storage: map['storage'],
+      //           ));
+      //         }
+      //       }
+      //
+      //     }else{
+      //       colorImageObject.add(ColorImage(color:  map['color_image'] != null ? map['color_image']['color'] : null, imageName: ImageFullUrl(key: name), storage: map['storage']));
+      //     }
+      //   }
+      // }
+
+      // callback(true, name, type, map['color_image'] != null ? map['color_image']['color'] : null);
+      callback(true, name, type, map['storage'] ?? "public");
+      notifyListeners();
+    } else {
+      _isLoading = false;
+      ApiChecker.checkApi(response);
+      showCustomSnackBarWidget(
+          getTranslated('Failed to upload video', Get.context!), Get.context!);
+    }
+    notifyListeners();
+
+    // _isLoading = true;
+    // notifyListeners();
+    //
+    // ApiResponse response = await shopServiceInterface.addVideo(context, imageForUpload, attributeList![0].active);
+    //
+    // if(response.response != null && response.response!.statusCode == 200) {
+    //   // totalUploaded ++;
+    //   _isLoading = false;
+    //   Map map = jsonDecode(response.response!.data);
+    //   String? name = map["image_name"];
+    //   String? type = map["type"];
+    //   // if(type == 'product'){
+    //   //   if(map["image_name"] != null && map["image_name"] != "null"){
+    //   //     productReturnImage?.add({
+    //   //       "image_name" : name,
+    //   //       "storage" : map['storage'] ?? "public",
+    //   //     });
+    //   //   }
+    //   //
+    //   //   if(attributeList![0].active){
+    //   //
+    //   //     if(update && map["color_image"]['color'] != null && index != null && (index < imagesWithColorForUpdate.length)){
+    //   //
+    //   //
+    //   //       String? previousColor = map["color_image"]['color'];
+    //   //
+    //   //       int imageIndex = colorImageObject.indexWhere((v) => v.color == previousColor);
+    //   //
+    //   //       if(imageIndex != -1) {
+    //   //         colorImageObject[imageIndex] = ColorImage(
+    //   //           color: previousColor,
+    //   //           imageName: ImageFullUrl(key: name),
+    //   //           storage: map['storage'],
+    //   //         );
+    //   //       }else {
+    //   //         int i = withColor.indexWhere((v) => v.color == previousColor);
+    //   //         ///if previous color remove form previous screen and add new that time it will return -1
+    //   //         if(i == -1) {
+    //   //           colorImageObject.add(ColorImage(
+    //   //             color: previousColor,
+    //   //             imageName: ImageFullUrl(key: name),
+    //   //             storage: map['storage'],
+    //   //           ));
+    //   //         }
+    //   //       }
+    //   //
+    //   //     }else{
+    //   //       colorImageObject.add(ColorImage(color:  map['color_image'] != null ? map['color_image']['color'] : null, imageName: ImageFullUrl(key: name), storage: map['storage']));
+    //   //     }
+    //   //   }
+    //   // }
+    //
+    //   callback(true, name, type, map['color_image'] != null ? map['color_image']['color'] : null);
+    //   notifyListeners();
+    // } else {
+    //   _isLoading = false;
+    //   ApiChecker.checkApi( response);
+    //   showCustomSnackBarWidget(getTranslated('image_upload_failed', Get.context!), Get.context!);
+    // }
+    // notifyListeners();
   }
 
   // Future onDeleteAllProductImage(bool update, int? productId, int? index, ) async {
@@ -873,29 +1181,35 @@ class AddProductController extends ChangeNotifier {
   //   }
   // }
 
-
   final List<ColorImage> _deletedColorImageList = [];
 
-  Future<void> onUploadColorImages({required BuildContext context, required bool isUpdate, required int? productId, required Function callBack}) async {
+  Future<void> onUploadColorImages(
+      {required BuildContext context,
+      required bool isUpdate,
+      required int? productId,
+      required Function callBack}) async {
     _deletedColorImageList.clear();
 
-    if(withColor.isNotEmpty){
-      for(int i = 0; i < withColor.length; i++) {
-
+    if (withColor.isNotEmpty) {
+      for (int i = 0; i < withColor.length; i++) {
         ///get delete productImages before update new Color image
         await onDeleteAllProductImage(isUpdate, productId, i);
 
-        if(withColor[i].image != null && context.mounted){
-          await addProductImage(context, withColor[i], callBack, index: i, update: isUpdate);
+        if (withColor[i].image != null && context.mounted) {
+          await addProductImage(context, withColor[i], callBack,
+              index: i, update: isUpdate);
         }
-
       }
     }
   }
 
-  Future<void> onDeleteAllProductImage(bool update, int? productId, int? index) async {
+  Future<void> onDeleteAllProductImage(
+      bool update, int? productId, int? index) async {
     // Exit early if conditions aren't met
-    if (!update || productId == null || previousColorImage.isEmpty || index != 0) {
+    if (!update ||
+        productId == null ||
+        previousColorImage.isEmpty ||
+        index != 0) {
       return;
     }
 
@@ -909,7 +1223,9 @@ class AddProductController extends ChangeNotifier {
       int i = previousColorImage.indexWhere((v) => v.color == imgColor);
 
       // Ensure valid index and both image and key are present
-      if (i != -1 && previousColorImage[i].imageName?.key != null && element.image != null) {
+      if (i != -1 &&
+          previousColorImage[i].imageName?.key != null &&
+          element.image != null) {
         isImageDeleted = true;
       }
     }
@@ -927,7 +1243,9 @@ class AddProductController extends ChangeNotifier {
 
         int i = previousColorImage.indexWhere((v) => v.color == imgColor);
 
-        if (i != -1 && previousColorImage[i].imageName?.key != null && element.image != null) {
+        if (i != -1 &&
+            previousColorImage[i].imageName?.key != null &&
+            element.image != null) {
           _deletedColorImageList.add(previousColorImage[i]);
         }
       });
@@ -937,8 +1255,16 @@ class AddProductController extends ChangeNotifier {
     }
   }
 
-
-  Future<void> addProduct(BuildContext context, Product product, AddProductModel addProduct, String? thumbnail, String? metaImage, bool isAdd, List<String?> tags) async {
+  Future<void> addProduct(
+      BuildContext context,
+      Product product,
+      AddProductModel addProduct,
+      String? thumbnail,
+      String? metaImage,
+      String? videoPath,
+      String? videoStorage,
+      bool isAdd,
+      List<String?> tags) async {
     _isLoading = true;
     DigitalVariationModel? digitalVariationModel;
     String? token;
@@ -947,12 +1273,12 @@ class AddProductController extends ChangeNotifier {
 
     _onClearColorVariations(addProduct);
 
-    if(_variantTypeList.isNotEmpty) {
+    if (_variantTypeList.isNotEmpty) {
       List<int?> idList = [];
       List<String?> nameList = [];
       for (var attributeModel in _attributeList!) {
-        if(attributeModel.active) {
-          if(attributeModel.attribute.id != 0) {
+        if (attributeModel.active) {
+          if (attributeModel.attribute.id != 0) {
             idList.add(attributeModel.attribute.id);
             nameList.add(attributeModel.attribute.name);
           }
@@ -960,17 +1286,32 @@ class AddProductController extends ChangeNotifier {
           for (var variant in attributeModel.variants) {
             variantString.add(variant);
           }
-          fields.addAll(<String, dynamic>{'choice_options_${attributeModel.attribute.id}': variantString});
+          fields.addAll(<String, dynamic>{
+            'choice_options_${attributeModel.attribute.id}': variantString
+          });
         }
       }
-      fields.addAll(<String, dynamic> {
-        'choice_attributes': jsonEncode(idList), 'choice_no': jsonEncode(idList), 'choice': jsonEncode(nameList)
+      fields.addAll(<String, dynamic>{
+        'choice_attributes': jsonEncode(idList),
+        'choice_no': jsonEncode(idList),
+        'choice': jsonEncode(nameList)
       });
 
-      for(int index=0; index<_variantTypeList.length; index++) {
-        fields.addAll(<String, dynamic> {'price_${_variantTypeList[index].variantType}': PriceConverter.systemCurrencyToDefaultCurrency(double.parse(_variantTypeList[index].controller.text), context)});
-        fields.addAll(<String, dynamic> {'qty_${_variantTypeList[index].variantType}': int.parse(_variantTypeList[index].qtyController.text)});
-        fields.addAll(<String, dynamic> {'sku_${_variantTypeList[index].variantType}': "sku_${_variantTypeList[index].variantType}"});
+      for (int index = 0; index < _variantTypeList.length; index++) {
+        fields.addAll(<String, dynamic>{
+          'price_${_variantTypeList[index].variantType}':
+              PriceConverter.systemCurrencyToDefaultCurrency(
+                  double.parse(_variantTypeList[index].controller.text),
+                  context)
+        });
+        fields.addAll(<String, dynamic>{
+          'qty_${_variantTypeList[index].variantType}':
+              int.parse(_variantTypeList[index].qtyController.text)
+        });
+        fields.addAll(<String, dynamic>{
+          'sku_${_variantTypeList[index].variantType}':
+              "sku_${_variantTypeList[index].variantType}"
+        });
         _totalQuantity += int.parse(_variantTypeList[index].qtyController.text);
       }
       if (kDebugMode) {
@@ -978,15 +1319,13 @@ class AddProductController extends ChangeNotifier {
       }
     }
 
-
-
-    if(_selectedDigitalVariation.isNotEmpty) {
+    if (_selectedDigitalVariation.isNotEmpty) {
       digitalVariationModel = getDigitalVariationModel();
     } else {
-      digitalVariationModel =  DigitalVariationModel();
+      digitalVariationModel = DigitalVariationModel();
     }
 
-    token = Provider.of<AuthController>(context,listen: false).getUserToken();
+    token = Provider.of<AuthController>(context, listen: false).getUserToken();
     digitalVariationModel.digitalProductPreview = digitalProductPreview;
     digitalVariationModel.authors = [];
     digitalVariationModel.publishingHouse = [];
@@ -998,23 +1337,46 @@ class AddProductController extends ChangeNotifier {
 
     setMetaSeoData(product);
 
+    ApiResponse response = await shopServiceInterface.addProduct(
+        product,
+        addProduct,
+        fields,
+        productReturnImage,
+        thumbnail,
+        metaImage,
+        videoPath,
+        videoStorage,
+        isAdd,
+        attributeList![0].active,
+        colorImageObject,
+        tags,
+        _digitalProductFileName,
+        digitalVariationModel,
+        _selectedDigitalVariation.isNotEmpty,
+        token);
+    if (response.response != null && response.response?.statusCode == 200) {
+      await _onDeleteColorImages(product);
 
-   ApiResponse response = await shopServiceInterface.addProduct(product, addProduct ,fields, productReturnImage, thumbnail, metaImage, isAdd, attributeList![0].active, colorImageObject, tags, _digitalProductFileName, digitalVariationModel, _selectedDigitalVariation.isNotEmpty, token);
-    if(response.response != null && response.response?.statusCode == 200) {
-
-    await _onDeleteColorImages(product);
-
-     _productCode.clear();
-      Navigator.pushAndRemoveUntil(Get.context!, MaterialPageRoute(builder: (_) => const DashboardScreen()), (route) => false);
-      showCustomSnackBarWidget(isAdd ? getTranslated('product_added_successfully', Get.context!): getTranslated('product_updated_successfully', Get.context!),Get.context!, isError: false);
-       titleControllerList.clear();
+      _productCode.clear();
+      Navigator.pushAndRemoveUntil(
+          Get.context!,
+          MaterialPageRoute(builder: (_) => const DashboardScreen()),
+          (route) => false);
+      showCustomSnackBarWidget(
+          isAdd
+              ? getTranslated('product_added_successfully', Get.context!)
+              : getTranslated('product_updated_successfully', Get.context!),
+          Get.context!,
+          isError: false);
+      titleControllerList.clear();
       descriptionControllerList.clear();
       _pickedLogo = null;
+      _pickedVideo = null;
       _pickedCover = null;
-      _coveredImage =null;
+      _coveredImage = null;
       _productImage = [];
       colorImageObject = [];
-      productReturnImage=[];
+      productReturnImage = [];
       withColor = [];
       withoutColor = [];
       emptyDigitalProductData();
@@ -1022,25 +1384,28 @@ class AddProductController extends ChangeNotifier {
       _selectedFileForImport = null;
       _digitalProductFileName = '';
       _metaSeoInfo = MetaSeoInfo();
-     }else {
+    } else {
       //colorWithImage = [];
-      productReturnImage =[];
+      productReturnImage = [];
       withColor = [];
       colorImageObject = [];
       withoutColor = [];
       _isLoading = false;
-      ApiChecker.checkApi( response);
-      showCustomSnackBarWidget(getTranslated('product_add_failed', Get.context!), Get.context!, sanckBarType: SnackBarType.error);
+      ApiChecker.checkApi(response);
+      showCustomSnackBarWidget(
+          getTranslated('product_add_failed', Get.context!), Get.context!,
+          sanckBarType: SnackBarType.error);
     }
     _isLoading = false;
     notifyListeners();
   }
 
   Future<void> _onDeleteColorImages(Product product) async {
-    if(_deletedColorImageList.isNotEmpty){
+    if (_deletedColorImageList.isNotEmpty) {
       await Future.forEach(_deletedColorImageList, (image) async {
-        await deleteProductImage(product.id.toString(), image.imageName!.key!, null, isCheckError: true);
-
+        await deleteProductImage(
+            product.id.toString(), image.imageName!.key!, null,
+            isCheckError: true);
       });
       await getProductImage(product.id.toString());
 
@@ -1049,14 +1414,12 @@ class AddProductController extends ChangeNotifier {
   }
 
   void _onClearColorVariations(AddProductModel addProduct) {
-
-    if(_attributeList?.isNotEmpty ?? false) {
-      if(!(_attributeList?.first.active ?? false)) {
+    if (_attributeList?.isNotEmpty ?? false) {
+      if (!(_attributeList?.first.active ?? false)) {
         addProduct.colorCodeList = [];
       }
     }
   }
-
 
   void setMetaSeoData(Product product) {
     metaSeoInfo?.metaMaxImagePreviewValue = _imagePreviewSelectedType;
@@ -1068,10 +1431,6 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
-
   void generateVariantTypes(BuildContext context, Product? product) {
     List<List<String?>> mainList = [];
     int length = 1;
@@ -1079,46 +1438,61 @@ class AddProductController extends ChangeNotifier {
     List<int> indexList = [];
     _variantTypeList = [];
     for (var attribute in _attributeList!) {
-      if(attribute.active) {
+      if (attribute.active) {
         hasData = true;
         mainList.add(attribute.variants);
         length = length * attribute.variants.length;
         indexList.add(0);
       }
     }
-    if(!hasData) {
+    if (!hasData) {
       length = 0;
     }
-    for(int i=0; i<length; i++) {
+    for (int i = 0; i < length; i++) {
       String value = '';
-      for(int j=0; j<mainList.length; j++) {
-        value = value + (value.isEmpty ? '' : '-') + mainList[j][indexList[j]]!.trim();
+      for (int j = 0; j < mainList.length; j++) {
+        value = value +
+            (value.isEmpty ? '' : '-') +
+            mainList[j][indexList[j]]!.trim();
       }
-      if(product != null) {
+      if (product != null) {
         double? price = 0;
         int? quantity = 0;
-        for(Variation variation in product.variation!) {
-          if(variation.type == value) {
+        for (Variation variation in product.variation!) {
+          if (variation.type == value) {
             price = variation.price;
             quantity = variation.qty;
             break;
           }
         }
         _variantTypeList.add(VariantTypeModel(
-          variantType: value, controller: TextEditingController(text: price! > 0 ? PriceConverter.convertPriceWithoutSymbol(context,price) : ''), node: FocusNode(),
-          qtyController: TextEditingController(text: quantity.toString()), qtyNode: FocusNode(),
+          variantType: value,
+          controller: TextEditingController(
+              text: price! > 0
+                  ? PriceConverter.convertPriceWithoutSymbol(context, price)
+                  : ''),
+          node: FocusNode(),
+          qtyController: TextEditingController(text: quantity.toString()),
+          qtyNode: FocusNode(),
         ));
         // _variationTotalQuantity
-      }else {
-        _variantTypeList.add(VariantTypeModel(variantType: value, controller: TextEditingController(), node: FocusNode(),qtyController: TextEditingController(),qtyNode: FocusNode()));
+      } else {
+        _variantTypeList.add(VariantTypeModel(
+            variantType: value,
+            controller: TextEditingController(),
+            node: FocusNode(),
+            qtyController: TextEditingController(),
+            qtyNode: FocusNode()));
       }
-      
-      for(int j=0; j<mainList.length; j++) {
-        if(indexList[indexList.length-(1+j)] < mainList[mainList.length-(1+j)].length-1) {
-          indexList[indexList.length-(1+j)] = indexList[indexList.length-(1+j)] + 1;
+
+      for (int j = 0; j < mainList.length; j++) {
+        if (indexList[indexList.length - (1 + j)] <
+            mainList[mainList.length - (1 + j)].length - 1) {
+          indexList[indexList.length - (1 + j)] =
+              indexList[indexList.length - (1 + j)] + 1;
           break;
-        }else {
-          indexList[indexList.length-(1+j)] = 0;
+        } else {
+          indexList[indexList.length - (1 + j)] = 0;
         }
       }
     }
@@ -1131,11 +1505,11 @@ class AddProductController extends ChangeNotifier {
     debugPrint('-----------gen----${_variantTypeList.length}');
     // debugPrint("====TotalVariationCount=====>${_variationTotalQuantity}");
   }
-  
+
   bool hasAttribute() {
     bool hasData = false;
-    for(AttributeModel attribute in _attributeList!) {
-      if(attribute.active) {
+    for (AttributeModel attribute in _attributeList!) {
+      if (attribute.active) {
         hasData = true;
         break;
       }
@@ -1143,7 +1517,7 @@ class AddProductController extends ChangeNotifier {
     return hasData;
   }
 
-  void setValueForUnit (String? setValue){
+  void setValueForUnit(String? setValue) {
     if (kDebugMode) {
       debugPrint('------$setValue====$_unitValue');
     }
@@ -1152,20 +1526,19 @@ class AddProductController extends ChangeNotifier {
 
   void setProductTypeIndex(int index, bool notify) {
     _productTypeIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
-
 
   void setDigitalProductTypeIndex(int index, bool notify) {
     _digitalProductTypeIndex = index;
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
-  void setSelectedFileName(File? fileName){
+  void setSelectedFileName(File? fileName) {
     _selectedFileForImport = fileName;
     if (kDebugMode) {
       debugPrint('Here is your file ===>$_selectedFileForImport');
@@ -1173,13 +1546,13 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<ApiResponse> uploadDigitalProduct(String token) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse response = await shopServiceInterface.uploadDigitalProduct(_selectedFileForImport, token);
+    ApiResponse response = await shopServiceInterface.uploadDigitalProduct(
+        _selectedFileForImport, token);
 
-    if(response.response!.statusCode == 200) {
+    if (response.response!.statusCode == 200) {
       if (kDebugMode) {
         debugPrint('digital product uploaded');
       }
@@ -1187,42 +1560,48 @@ class AddProductController extends ChangeNotifier {
       Map map = jsonDecode(response.response!.data);
       _digitalProductFileName = map["digital_file_ready_name"];
       if (kDebugMode) {
-        debugPrint('-----digital product uploaded---->$_digitalProductFileName');
+        debugPrint(
+            '-----digital product uploaded---->$_digitalProductFileName');
       }
-
-    }else {
+    } else {
       _isLoading = false;
     }
     _isLoading = false;
     notifyListeners();
     return response;
   }
-  
-  
-  void setTotalVariantTotalQuantity(int total){
+
+  void setTotalVariantTotalQuantity(int total) {
     _totalVariantQuantity = total;
   }
 
-  Future<void> updateProductQuantity(BuildContext context, int? productId, int currentStock, List<Variation> variations) async {
-    if(kDebugMode){
+  Future<void> updateProductQuantity(BuildContext context, int? productId,
+      int currentStock, List<Variation> variations) async {
+    if (kDebugMode) {
       debugPrint("variation======>${variations.length}/${variations.toList()}");
     }
     List<Variation> updatedVariations = [];
-    for(int i=0; i<variations.length; i++){
-      updatedVariations.add(Variation(type: variations[i].type,
+    for (int i = 0; i < variations.length; i++) {
+      updatedVariations.add(Variation(
+          type: variations[i].type,
           sku: variations[i].sku,
           price: variations[i].price,
-          qty: int.parse(_variantTypeList[i].qtyController.text)
-      ));
+          qty: int.parse(_variantTypeList[i].qtyController.text)));
     }
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await shopServiceInterface.updateProductQuantity(productId, currentStock, updatedVariations);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse = await shopServiceInterface.updateProductQuantity(
+        productId, currentStock, updatedVariations);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Navigator.pop(Get.context!);
-      showCustomSnackBarWidget(getTranslated('quantity_updated_successfully', Get.context!), Get.context!, isError: false);
-      Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'ko');
+      showCustomSnackBarWidget(
+          getTranslated('quantity_updated_successfully', Get.context!),
+          Get.context!,
+          isError: false);
+      Provider.of<ProductController>(Get.context!, listen: false)
+          .getStockOutProductList(1, 'ko');
       // Provider.of<ProductController>(Get.context!, listen: false).getStockOutProductList(1, 'en');
     } else {
       _isLoading = false;
@@ -1231,27 +1610,35 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<void> updateRestockProductQuantity(BuildContext context, int? productId, int currentStock, List<Variation> variations,{int? index}) async {
-    if(kDebugMode){
+  Future<void> updateRestockProductQuantity(BuildContext context,
+      int? productId, int currentStock, List<Variation> variations,
+      {int? index}) async {
+    if (kDebugMode) {
       debugPrint("variation======>${variations.length}/${variations.toList()}");
     }
     List<Variation> updatedVariations = [];
-    for(int i=0; i<variations.length; i++){
-      updatedVariations.add(Variation(type: variations[i].type,
+    for (int i = 0; i < variations.length; i++) {
+      updatedVariations.add(Variation(
+          type: variations[i].type,
           sku: variations[i].sku,
           price: variations[i].price,
-          qty: int.parse(_variantTypeList[i].qtyController.text)
-      ));
+          qty: int.parse(_variantTypeList[i].qtyController.text)));
     }
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await shopServiceInterface.updateRestockProductQuantity(productId, currentStock, updatedVariations);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await shopServiceInterface.updateRestockProductQuantity(
+            productId, currentStock, updatedVariations);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Navigator.pop(Get.context!);
-      showCustomSnackBarWidget(getTranslated('quantity_updated_successfully', Get.context!), Get.context!, isError: false);
-      await Provider.of<RestockController>(Get.context!, listen: false).getRestockProductList(1);
+      showCustomSnackBarWidget(
+          getTranslated('quantity_updated_successfully', Get.context!),
+          Get.context!,
+          isError: false);
+      await Provider.of<RestockController>(Get.context!, listen: false)
+          .getRestockProductList(1);
       // Provider.of<RestockController>(Get.context!, listen: false).removeItem(index);
     } else {
       _isLoading = false;
@@ -1260,34 +1647,41 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<void> deleteProductImage(String id, String name, String? color, {bool updateProductImage = true, bool isCheckError = true}) async {
+  Future<void> deleteProductImage(String id, String name, String? color,
+      {bool updateProductImage = true, bool isCheckError = true}) async {
     //_isLoading = true;
-    ApiResponse apiResponse = await shopServiceInterface.deleteProductImage(id, name, color);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-     if(updateProductImage) {
+    ApiResponse apiResponse =
+        await shopServiceInterface.deleteProductImage(id, name, color);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      if (updateProductImage) {
         getProductImage(id);
-     }
+      }
     } else {
-      if(isCheckError) {
+      if (isCheckError) {
         ApiChecker.checkApi(apiResponse);
-
       }
     }
     notifyListeners();
   }
 
-  Future<void> deleteDigitalVariationFile(int productId, int index, int subIndex) async {
+  Future<void> deleteDigitalVariationFile(
+      int productId, int index, int subIndex) async {
     _isDigitalVariationLoading[index][subIndex] = true;
     notifyListeners();
 
     String vKey = editVariantKeys[index][subIndex];
 
-    ApiResponse apiResponse = await shopServiceInterface.deleteDigitalVariationFile(productId, vKey);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await shopServiceInterface.deleteDigitalVariationFile(productId, vKey);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _variationFileList[index][subIndex].fileName = null;
       _isLoading = false;
-      showCustomSnackBarWidget(getTranslated('digital_product_deleted_successfully', Get.context!), Get.context!, sanckBarType: SnackBarType.success);
+      showCustomSnackBarWidget(
+          getTranslated('digital_product_deleted_successfully', Get.context!),
+          Get.context!,
+          sanckBarType: SnackBarType.success);
     } else {
       _isLoading = false;
       ApiChecker.checkApi(apiResponse);
@@ -1297,62 +1691,64 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   List<String> imagesWithoutColor = [];
   List<String> imagesWithColorForUpdate = [];
   ProductImagesModel? productImagesModel;
 
-  Future<void> getProductImage(String id, {bool isStorePreviousImage = false}) async {
+  Future<void> getProductImage(String id,
+      {bool isStorePreviousImage = false}) async {
     imagesWithoutColor = [];
     productReturnImage = [];
     colorImageObject = [];
-    imagesWithColorForUpdate =[];
+    imagesWithColorForUpdate = [];
     withColorKeys = [];
     withoutColorKeys = [];
     _isLoading = true;
     notifyListeners();
     ApiResponse apiResponse = await shopServiceInterface.getProductImage(id);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       imagesWithoutColor = [];
       productReturnImage = [];
-      imagesWithColorForUpdate =[];
+      imagesWithColorForUpdate = [];
       colorImageObject.clear();
       _isLoading = false;
-      productImagesModel = ProductImagesModel.fromJson(apiResponse.response?.data);
+      productImagesModel =
+          ProductImagesModel.fromJson(apiResponse.response?.data);
 
-      if(productImagesModel!.colorImage!.isNotEmpty) {
+      if (productImagesModel!.colorImage!.isNotEmpty) {
         colorImageObject = productImagesModel?.colorImage ?? [];
 
-        if(isStorePreviousImage) {
+        if (isStorePreviousImage) {
           previousColorImage = [];
           previousColorImage.addAll(productImagesModel?.colorImage ?? []);
           // previousColorImage = productImagesModel?.colorImage ?? [];
           for (var v in previousColorImage) {
-            debugPrint('-----------previous image value------${v.imageName?.key} || ${v.imageName?.path} || ${v.color} || ${v.storage}');
+            debugPrint(
+                '-----------previous image value------${v.imageName?.key} || ${v.imageName?.path} || ${v.color} || ${v.storage}');
           }
         }
 
-        for(int i = 0; i<productImagesModel!.colorImage!.length; i++) {
+        for (int i = 0; i < productImagesModel!.colorImage!.length; i++) {
           ColorImage img = productImagesModel!.colorImage![i];
 
-          if(img.color != null){
-            imagesWithColorForUpdate.add(img.imageName?.key ??'');
+          if (img.color != null) {
+            imagesWithColorForUpdate.add(img.imageName?.key ?? '');
             log("===>vai response ==> ${img.color}");
           }
 
-
-          if(withColor.isNotEmpty) {
-            for(int index=0; index<withColor.length; index++) {
+          if (withColor.isNotEmpty) {
+            for (int index = 0; index < withColor.length; index++) {
               log("withcolor==> ${withColor[index].color}----> ${img.color}");
               String retColor = withColor[index].color!;
               String? bb;
-              if(retColor.contains('#')){
+              if (retColor.contains('#')) {
                 bb = retColor.replaceAll('#', '');
               }
               log("withcolor==>chk $bb----> ${img.color}");
-              if(bb == img.color) {
-                setStringImage(index, img.imageName?.key  ?? '', img.color ?? '', path: img.imageName?.path);
+              if (bb == img.color) {
+                setStringImage(index, img.imageName?.key ?? '', img.color ?? '',
+                    path: img.imageName?.path);
                 withColorKeys.add(img.imageName?.key ?? '');
               }
             }
@@ -1368,35 +1764,30 @@ class AddProductController extends ChangeNotifier {
       List<Map<String, dynamic>> keyList = [];
       final Set<String> colorImagesPaths = {};
 
-      for(final imageModel in withColor) {
-        if(imageModel.colorImage?.imageName?.path != null) {
+      for (final imageModel in withColor) {
+        if (imageModel.colorImage?.imageName?.path != null) {
           colorImagesPaths.add(imageModel.colorImage!.imageName!.path!);
-
         }
       }
 
-
-      for(int i = 0; i < (productImagesModel?.images?.length ?? 0); i++) {
-        if(productImagesModel?.images?[i].path != '') {
-
-          if(!colorImagesPaths.contains(productImagesModel?.images?[i].path)) {
+      for (int i = 0; i < (productImagesModel?.images?.length ?? 0); i++) {
+        if (productImagesModel?.images?[i].path != '') {
+          if (!colorImagesPaths.contains(productImagesModel?.images?[i].path)) {
             pathList.add(productImagesModel?.images![i].path ?? '');
-
           }
 
           keyList.add({
-            "image_name" : productImagesModel?.images![i].key ?? '',
-            "storage" : productImagesModel?.imagesStorage![i].storage ?? 'public',
+            "image_name": productImagesModel?.images![i].key ?? '',
+            "storage":
+                productImagesModel?.imagesStorage![i].storage ?? 'public',
           });
 
           withoutColorKeys.add(productImagesModel?.images![i].key ?? '');
-
         }
       }
 
       imagesWithoutColor.addAll(pathList);
       productReturnImage?.addAll(keyList);
-
     } else {
       _isLoading = false;
       ApiChecker.checkApi(apiResponse);
@@ -1406,19 +1797,17 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  void resetCategory () {
+  void resetCategory() {
     _categoryIndex = 0;
     _subCategoryIndex = 0;
     _subSubCategoryIndex = 0;
   }
 
-  void setCurrentStock(String stock){
+  void setCurrentStock(String stock) {
     _totalQuantityController.text = stock;
   }
 
-
-  void removeCategory(){
+  void removeCategory() {
     _categoryList = null;
     _subCategoryList = null;
     _subSubCategoryList = null;
@@ -1442,42 +1831,60 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addExtension(int index, String text){
+  void addExtension(int index, String text) {
     _digitalVariationExtension[index].add(text);
     extentionControllerList[index].text = '';
-    _variationFileList[index].add(
-       FileUploadModel(
-         priceController: TextEditingController(),
-         skuController: TextEditingController(text: generateSKU()),
-         file: null,
-       )
-    );
+    _variationFileList[index].add(FileUploadModel(
+      priceController: TextEditingController(),
+      skuController: TextEditingController(text: generateSKU()),
+      file: null,
+    ));
     _isDigitalVariationLoading[index].add(false);
     notifyListeners();
   }
 
-  void removeExtension(int index, int subIndex){
+  void removeExtension(int index, int subIndex) {
     _digitalVariationExtension[index].removeAt(subIndex);
     _variationFileList[index].removeAt(subIndex);
     _isDigitalVariationLoading[index].removeAt(subIndex);
     notifyListeners();
   }
 
-
-  void pickFileForDigitalProduct (int index, int subIndex) async{
-
+  void pickFileForDigitalProduct(int index, int subIndex) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       withReadStream: true,
       withData: true,
-      allowedExtensions: ['pdf', 'zip', 'jpg', 'png', "jpeg", "gif",  "mp4", "avi", "mov", "mkv", "webm", "mpeg", "mpg", "3gp", "m4v", "mp3", "wav", "aac", "wma", "amr"],
+      allowedExtensions: [
+        'pdf',
+        'zip',
+        'jpg',
+        'png',
+        "jpeg",
+        "gif",
+        "mp4",
+        "avi",
+        "mov",
+        "mkv",
+        "webm",
+        "mpeg",
+        "mpg",
+        "3gp",
+        "m4v",
+        "mp3",
+        "wav",
+        "aac",
+        "wma",
+        "amr"
+      ],
     );
 
-    if(result != null){
+    if (result != null) {
       Uint8List? imageBytes = result.files.first.bytes;
-      File? file = await File(result.files.first.path!).writeAsBytes(imageBytes!);
+      File? file =
+          await File(result.files.first.path!).writeAsBytes(imageBytes!);
 
-      XFile xFile =  XFile(file.path);
+      XFile xFile = XFile(file.path);
 
       _variationFileList[index][subIndex].file = xFile;
       PlatformFile? fileNamed = result.files.first;
@@ -1487,20 +1894,18 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  void removeFileForDigitalProduct (int index, int subIndex) async{
-      _variationFileList[index][subIndex].file = null;
-      _variationFileList[index][subIndex].fileName = null;
+  void removeFileForDigitalProduct(int index, int subIndex) async {
+    _variationFileList[index][subIndex].file = null;
+    _variationFileList[index][subIndex].fileName = null;
     notifyListeners();
   }
 
-  void  setSelectedPageIndex (int index, {bool isUpdate = true}){
+  void setSelectedPageIndex(int index, {bool isUpdate = true}) {
     _selectedPageIndex = index;
-    if(isUpdate) {
+    if (isUpdate) {
       notifyListeners();
     }
   }
-
 
   List<String> processList(List<String> inputList) {
     return inputList.map((str) => str.toLowerCase().trim()).toList();
@@ -1509,6 +1914,7 @@ class AddProductController extends ChangeNotifier {
   String removeSpacesAndLowercase(String input) {
     return input.replaceAll(' ', '').toLowerCase();
   }
+
   String replaceUnderscoreWithHyphen(String input) {
     return input.replaceAll('_', '-');
   }
@@ -1520,11 +1926,9 @@ class AddProductController extends ChangeNotifier {
     return input[0].toUpperCase() + input.substring(1);
   }
 
-
-  void updateState(){
+  void updateState() {
     notifyListeners();
   }
-
 
   String generateSKU() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -1549,36 +1953,59 @@ class AddProductController extends ChangeNotifier {
     _selectedAuthors = [];
   }
 
-
-
-  void pickFileDigitalProductPreview () async {
+  void pickFileDigitalProductPreview() async {
+    print('----picking files-----');
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       withReadStream: true,
       withData: true,
-      allowedExtensions: ['pdf', 'zip', 'jpg', 'png', "jpeg", "gif",  "mp4", "avi", "mov", "mkv", "webm", "mpeg", "mpg", "3gp", "m4v", "mp3", "wav", "aac", "wma", "amr"],
+      allowedExtensions: [
+        'pdf',
+        'zip',
+        'jpg',
+        'png',
+        "jpeg",
+        "gif",
+        "mp4",
+        "avi",
+        "mov",
+        "mkv",
+        "webm",
+        "mpeg",
+        "mpg",
+        "3gp",
+        "m4v",
+        "mp3",
+        "wav",
+        "aac",
+        "wma",
+        "amr"
+      ],
     );
 
-    if(result != null){
+    if (result != null) {
       Uint8List? imageBytes = result.files.first.bytes;
-      File? file = await File(result.files.first.path!).writeAsBytes(imageBytes!);
+      File? file =
+          await File(result.files.first.path!).writeAsBytes(imageBytes!);
 
-      XFile xFile =  XFile(file.path);
+      XFile xFile = XFile(file.path);
 
       _digitalProductPreview = xFile;
+      print('----picking files-----' + _digitalProductPreview!.path.toString());
     }
     notifyListeners();
   }
 
-  Future<void>  deleteDigitalPreviewFile(int? id) async {
-
-    if(_digitalProductPreview != null) {
+  Future<void> deleteDigitalPreviewFile(int? id) async {
+    if (_digitalProductPreview != null) {
       _digitalProductPreview = null;
-    }else if (id != null) {
+    } else if (id != null) {
       _isPreviewLoading = true;
       notifyListeners();
-      ApiResponse apiResponse = await shopServiceInterface.deleteProductPreview(id);
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      ApiResponse apiResponse =
+          await shopServiceInterface.deleteProductPreview(id);
+      if (apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200) {
         isPreviewNull = true;
         _isPreviewLoading = false;
       } else {
@@ -1589,13 +2016,12 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   Future<void> getDigitalAuthor() async {
     ApiResponse response = await shopServiceInterface.getDigitalAuthor();
     if (response.response!.statusCode == 200) {
       _authorsList = [];
-      response.response!.data.forEach((brand) => _authorsList.add(AuthorModel.fromJson(brand)));
+      response.response!.data
+          .forEach((brand) => _authorsList.add(AuthorModel.fromJson(brand)));
       debugPrint("===AuthorList===>>${_authorsList.length}");
     } else {
       ApiChecker.checkApi(response);
@@ -1603,21 +2029,20 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<void> getPublishingHouse() async {
     ApiResponse response = await shopServiceInterface.getPublishingHouse();
     if (response.response?.statusCode == 200) {
       _publishingHouseList = [];
-      response.response!.data.forEach((brand) => _publishingHouseList.add(AuthorModel.fromJson(brand)));
+      response.response!.data.forEach(
+          (brand) => _publishingHouseList.add(AuthorModel.fromJson(brand)));
     } else {
       ApiChecker.checkApi(response);
     }
     notifyListeners();
   }
 
-
   void addAuthor(String authorName) {
-    if(!_selectedAuthors.contains(authorName)) {
+    if (!_selectedAuthors.contains(authorName)) {
       _selectedAuthors.add(authorName);
     }
     notifyListeners();
@@ -1629,7 +2054,7 @@ class AddProductController extends ChangeNotifier {
   }
 
   void addPublishingHouse(String publishingHouse) {
-    if(!_selectedPublishingHouse.contains(publishingHouse)) {
+    if (!_selectedPublishingHouse.contains(publishingHouse)) {
       _selectedPublishingHouse.add(publishingHouse);
     }
     notifyListeners();
@@ -1640,17 +2065,16 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   void setAuthorPublishingData(Product product) {
     _selectedPublishingHouse = [];
     _selectedAuthors = [];
 
-    if(product.publishingHouse != null){
-      _selectedPublishingHouse.addAll(product.publishingHouse! as Iterable<String>);
+    if (product.publishingHouse != null) {
+      _selectedPublishingHouse
+          .addAll(product.publishingHouse! as Iterable<String>);
     }
 
-    if(product.authors != null){
+    if (product.authors != null) {
       _selectedAuthors.addAll(product.authors! as Iterable<String>);
     }
   }
@@ -1659,15 +2083,11 @@ class AddProductController extends ChangeNotifier {
     isPreviewNull = isNull;
   }
 
-
-  void toggleCategoryChecked(int index, {bool isUpdate = true}){
+  void toggleCategoryChecked(int index, {bool isUpdate = true}) {
     categoryList![index].toggleChecked();
 
-    if(isUpdate) {
+    if (isUpdate) {
       notifyListeners();
-
     }
   }
-
-
 }

@@ -87,8 +87,12 @@ class AuthService implements AuthServiceInterface{
   }
 
   @override
-  Future registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel) async{
-    return authRepoInterface.registration(profileImage, shopLogo, shopBanner, secondaryBanner, registerModel);
+  Future registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, XFile? businessLogo, RegisterModel registerModel) async{
+    return authRepoInterface.registration(profileImage, shopLogo, shopBanner, secondaryBanner, businessLogo, registerModel);
+  }
+  @override
+  Future registrationOld(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel) {
+    return authRepoInterface.registration(profileImage, shopLogo, shopBanner, secondaryBanner, null, registerModel);
   }
 
   @override

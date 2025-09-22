@@ -12,13 +12,18 @@ class AddProductService implements AddProductServiceInterface{
  AddProductService({required this.shopRepoInterface});
 
   @override
+  Future addVideo(BuildContext context, ImageModel imageForUpload, bool colorActivate) {
+    return shopRepoInterface.addVideo(context, imageForUpload, colorActivate);
+  }
+
+  @override
   Future addImage(BuildContext context, ImageModel imageForUpload, bool colorActivate) {
     return shopRepoInterface.addImage(context, imageForUpload, colorActivate);
   }
 
   @override
-  Future addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String, dynamic>>? productImages, String? thumbnail, String? metaImage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token) async{
-    return await shopRepoInterface.addProduct(product, addProduct, attributes, productImages, thumbnail, metaImage, isAdd, isActiveColor, colorImageObject, tags, digitalFileReady, digitalVariationModel, isDigitalVariationActive, token);
+  Future addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String, dynamic>>? productImages, String? thumbnail, String? metaImage,String? videoPath,String? videoStorage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token) async{
+    return await shopRepoInterface.addProduct(product, addProduct, attributes, productImages, thumbnail, metaImage, videoPath, videoStorage, isAdd, isActiveColor, colorImageObject, tags, digitalFileReady, digitalVariationModel, isDigitalVariationActive, token);
   }
 
   @override

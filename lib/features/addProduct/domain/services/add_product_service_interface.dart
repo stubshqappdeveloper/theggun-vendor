@@ -13,7 +13,8 @@ abstract class AddProductServiceInterface {
   Future<dynamic> getSubCategoryList();
   Future<dynamic> getSubSubCategoryList();
   Future<dynamic> addImage(BuildContext context, ImageModel imageForUpload, bool colorActivate);
-  Future<dynamic> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String, dynamic>>? productImages, String? thumbnail, String? metaImage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token);
+  Future<dynamic> addVideo(BuildContext context, ImageModel imageForUpload, bool colorActivate);
+  Future<dynamic> addProduct(Product product, AddProductModel addProduct, Map<String, dynamic> attributes, List<Map<String, dynamic>>? productImages, String? thumbnail, String? metaImage, String? videoPath, String? videoStorage, bool isAdd, bool isActiveColor, List<ColorImage> colorImageObject, List<String?> tags, String? digitalFileReady, DigitalVariationModel? digitalVariationModel, bool? isDigitalVariationActive, String? token);
   Future<dynamic> uploadDigitalProduct(File? filePath, String token);
   Future<dynamic> updateProductQuantity(int? productId,int currentStock, List <Variation> variation);
   Future<dynamic> updateRestockProductQuantity(int? productId,int currentStock, List <Variation> variation);

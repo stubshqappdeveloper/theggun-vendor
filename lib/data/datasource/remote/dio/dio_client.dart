@@ -133,7 +133,11 @@ class DioClient {
 
       for(int i=0; i<FormData.fromMap(data ?? {}).fields.length; i++){
         if (kDebugMode) {
-          print("=====FromData==$i=>>${FormData.fromMap(data ?? {}).fields[i]}");
+          try {
+            print("=====FromData==$i=>>${FormData.fromMap(data ?? {}).fields[i]}");
+          } catch (e) {
+            print("=====FromData=Error="+e.toString());
+          }
         }
       }
 
@@ -150,8 +154,10 @@ class DioClient {
       );
       return response;
     } on FormatException catch (_) {
+      print("=====FormatException=Error="+_.toString());
       throw const FormatException("Unable to process the data");
     } catch (e) {
+      print("======Error="+e.toString());
       rethrow;
     }
   }

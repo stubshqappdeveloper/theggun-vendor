@@ -22,11 +22,13 @@ class AuthController with ChangeNotifier {
   String get loginErrorMessage => _loginErrorMessage;
   XFile? _sellerProfileImage;
   XFile? _shopLogo;
+  XFile? _businessLogo;
   XFile? _shopBanner;
   XFile? secondaryBanner;
   XFile? offerBanner;
   XFile? get sellerProfileImage => _sellerProfileImage;
   XFile? get shopLogo => _shopLogo;
+  XFile? get businessLogo => _businessLogo;
   XFile? get shopBanner => _shopBanner;
   bool? _isTermsAndCondition = false;
   bool? get isTermsAndCondition => _isTermsAndCondition;
@@ -49,6 +51,7 @@ class AuthController with ChangeNotifier {
   String? _countryDialCode = '+82';
   // String? _countryDialCode = '+880';
   String? get countryDialCode => _countryDialCode;
+  // List<String>? get membershipTypes => _membershipTypes;
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController(text: ".");
@@ -58,6 +61,11 @@ class AuthController with ChangeNotifier {
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController shopNameController = TextEditingController();
   TextEditingController shopAddressController = TextEditingController();
+  TextEditingController totalCareerController = TextEditingController();
+  TextEditingController introController = TextEditingController();
+  TextEditingController hoursController = TextEditingController(text: '00:00');
+  TextEditingController membershipTypeController = TextEditingController();
+  String? selectedMembershipType = "Individual";
 
   FocusNode firstNameNode = FocusNode();
   FocusNode lastNameNode = FocusNode();
@@ -205,10 +213,11 @@ class AuthController with ChangeNotifier {
   }
 
 
-  void pickImage(bool isProfile, bool shopLogo, bool isRemove, {bool secondary = false, bool offer = false}) async {
+  void pickImage(bool isProfile, bool shopLogo, bool isRemove, {bool secondary = false, bool offer = false, bool businessLogo = false}) async {
     if(isRemove) {
       _sellerProfileImage = null;
       _shopLogo = null;
+      _businessLogo = null;
       _shopBanner = null;
       secondaryBanner = null;
     }else {
@@ -216,11 +225,13 @@ class AuthController with ChangeNotifier {
         _sellerProfileImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       } else if(shopLogo){
         _shopLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
-      }else if(secondary){
+      } else if(secondary){
         secondaryBanner = await ImagePicker().pickImage(source: ImageSource.gallery);
-      }else if(offer){
+      } else if(offer){
         offerBanner = await ImagePicker().pickImage(source: ImageSource.gallery);
-      }else {
+      } else if(businessLogo){
+        _businessLogo = await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else {
         _shopBanner = await ImagePicker().pickImage(source: ImageSource.gallery);
       }
     }
@@ -230,7 +241,7 @@ class AuthController with ChangeNotifier {
   Future<ApiResponse> registration(BuildContext context,RegisterModel registerModel) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse  response = await authServiceInterface.registration(_sellerProfileImage, _shopLogo, _shopBanner, secondaryBanner, registerModel);
+    ApiResponse  response = await authServiceInterface.registration(_sellerProfileImage, _shopLogo, _shopBanner, secondaryBanner, _businessLogo, registerModel);
     if(response.response?.statusCode == 200) {
       _isLoading = false;
       firstNameController.clear();
@@ -242,8 +253,13 @@ class AuthController with ChangeNotifier {
       confirmPasswordController.clear();
       shopNameController.clear();
       shopAddressController.clear();
+      totalCareerController.clear();
+      hoursController.clear();
+      introController.clear();
+      membershipTypeController.clear();
       _sellerProfileImage = null;
       _shopLogo = null;
+      _businessLogo = null;
       _shopBanner = null;
       secondaryBanner = null;
       showCustomSnackBarWidget(getTranslated("you_are_successfully_registered", Get.context!), Get.context!, isError: false, sanckBarType: SnackBarType.success);
@@ -273,8 +289,13 @@ class AuthController with ChangeNotifier {
     confirmPasswordController.clear();
     shopNameController.clear();
     shopAddressController.clear();
+    totalCareerController.clear();
+    hoursController.clear();
+    introController.clear();
+    membershipTypeController.clear();
     _sellerProfileImage = null;
     _shopLogo = null;
+    _businessLogo = null;
     _shopBanner = null;
     secondaryBanner = null;
     if(isUpdate){

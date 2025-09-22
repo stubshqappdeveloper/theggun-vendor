@@ -18,5 +18,5 @@ abstract class AuthRepositoryInterface implements RepositoryInterface{
   String getUserEmail();
   String getUserPassword();
   Future<bool> clearUserNumberAndPassword();
-  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel);
+  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, XFile? businessLogo, RegisterModel registerModel);
 }

@@ -166,7 +166,7 @@ class AuthRepository implements AuthRepositoryInterface{
   }
 
   @override
-  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, RegisterModel registerModel) async {
+  Future<ApiResponse> registration(XFile? profileImage, XFile? shopLogo, XFile? shopBanner, XFile? secondaryBanner, XFile? businessLogo, RegisterModel registerModel) async {
     http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.baseUrl}${AppConstants.registration}'));
     if(profileImage != null) {
       Uint8List list = await profileImage.readAsBytes();
@@ -185,6 +185,11 @@ class AuthRepository implements AuthRepositoryInterface{
       var part = http.MultipartFile('bottom_banner', secondaryBanner.readAsBytes().asStream(), list.length, filename: basename(secondaryBanner.path));
       request.files.add(part);
     }
+    if(businessLogo != null) {
+      Uint8List list = await businessLogo.readAsBytes();
+      var part = http.MultipartFile('business_registration', businessLogo.readAsBytes().asStream(), list.length, filename: basename(businessLogo.path));
+      request.files.add(part);
+    }
 
     Map<String, String> fields = {};
     fields.addAll(<String, String>{
@@ -196,6 +201,11 @@ class AuthRepository implements AuthRepositoryInterface{
       'confirm_password': registerModel.confirmPassword!,
       'shop_name': registerModel.shopName!,
       'shop_address': registerModel.shopAddress!,
+      'membership_type': registerModel.membershipType!,
+      'consultation_hour': registerModel.consultationHours!.trim(),
+      'consultation_hours': "0${registerModel.consultationHours!.trim()}:00",
+      'total_career': registerModel.totalCareer!,
+      'introduction': registerModel.introduction!,
     });
 
     request.fields.addAll(fields);

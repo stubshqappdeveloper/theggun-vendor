@@ -25,6 +25,7 @@ import 'package:sixvalley_vendor_app/utill/styles.dart';
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_app_bar_widget.dart';
 import 'package:sixvalley_vendor_app/common/basewidgets/custom_snackbar_widget.dart';
 import 'package:textfield_tags/textfield_tags.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../data/model/image_full_url.dart';
 
@@ -70,7 +71,7 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
   late bool _update;
   Product? _product;
   AddProductModel? _addProduct;
-  String? thumbnailImage ='', metaImage ='';
+  String? thumbnailImage ='', metaImage ='', videoPath ='', videoStorage ='';
   int counter = 0, total = 0;
   int addColor = 0;
   List<String> tagList = [];
@@ -87,6 +88,7 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
   void dispose() {
     super.dispose();
     _controller!.dispose();
+    // resProvider.videoPlayerController!.dispose();
   }
 
   @override
@@ -104,7 +106,6 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
       _seoDescriptionController.text = _product!.metaSeoInfo != null ? _product!.metaSeoInfo?.metaDescription ?? '' : _product!.metaDescription ?? '';
       thumbnailImage = _product!.thumbnail;
       metaImage = _product!.metaImage;
-
 
       if(_product?.imagesFullUrl != null) {
         List<Map<String, dynamic>>? productImages = [];
@@ -133,6 +134,10 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
     if (isRoute) {
       if(type == 'meta'){metaImage = name;}
       else if(type == 'thumbnail'){thumbnailImage = name;}
+      else if(type == 'video'){
+        videoPath = name;
+        videoStorage = colorCode;
+      }
       if(_update){
         int withc = 0, withOurC = 0;
         if(Provider.of<AddProductController>(Get.context!,listen: false).withColor.isNotEmpty) {
@@ -192,7 +197,7 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
         if(counter == total) {
           counter++;
-          Provider.of<AddProductController>(Get.context!,listen: false).addProduct(context, _product!, _addProduct!, thumbnailImage, metaImage, !_update, tagList);
+          Provider.of<AddProductController>(Get.context!,listen: false).addProduct(context, _product!, _addProduct!, thumbnailImage, metaImage, videoPath, videoStorage, !_update, tagList);
         }
       }
     }
@@ -402,6 +407,66 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                     hintText: getTranslated('youtube_video_link', context)!,
                                   ),
                                   const SizedBox(height: Dimensions.paddingSizeExtraLarge),
+
+                                  Text('Upload Video',
+                                      style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault, color: ColorResources.titleColor(context))),
+                                  const SizedBox(height: Dimensions.paddingSizeSmall),
+
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor.withValues(alpha:0.10),
+                                      borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
+                                    ),
+                                    child: Align(alignment: Alignment.center, child: Stack(children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
+                                          child: resProvider.pickedVideo != null && resProvider.videoPlayerController!=null
+                                              // ?  Image.file(File(resProvider.pickedVideo!.path), width: 150, height: 160, fit: BoxFit.cover,)
+                                              ? Container(
+                                              width: 150, height: 160,
+                                              child: AspectRatio(aspectRatio: resProvider.videoPlayerController!.value.aspectRatio, child: VideoPlayer(resProvider.videoPlayerController!),))
+                                              : widget.product != null ? FadeInImage.assetNetwork(
+                                            placeholder: Images.placeholderImage,
+                                            image: _product!.thumbnailFullUrl?.path ?? '',
+                                            height: 160, width: 150, fit: BoxFit.cover,
+                                            imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholderImage,
+                                                height: 160, width: 150, fit: BoxFit.cover, color: Theme.of(context).highlightColor),
+                                          ) : Image.asset(Images.placeholderImage, height: 160,
+                                            width: 150, fit: BoxFit.cover, color: Theme.of(context).highlightColor,),
+                                        ),
+                                      ),
+                                      Positioned( bottom: 0, right: 0, top: 0, left: 0,
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          onTap: () => resProvider.pickVideo(true,false, false, null, isAddProduct: widget.product == null),
+                                          child: DottedBorder(
+                                            dashPattern: const [4,5],
+                                            borderType: BorderType.RRect,
+                                            color: Theme.of(context).hintColor,
+                                            radius: const Radius.circular(Dimensions.paddingEye),
+                                            child: Container(
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
+                                              ),
+                                              child: (resProvider.pickedVideo == null && (_product!.thumbnailFullUrl?.path == null || _product!.thumbnailFullUrl?.path == '')) ?
+                                              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                                Image.asset(Images.uploadImageIcon, width: 40,),
+
+                                                Text(getTranslated('upload_file', context)!, style: robotoRegular.copyWith(color: Theme.of(context).primaryColor.withValues(alpha: .7),))
+                                              ],) : const SizedBox.shrink(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ])),
+                                  ),
+                                  const SizedBox(height: Dimensions.paddingSizeDefault),
+
 
                                   Text(getTranslated('upload_thumbnail', context)!,
                                       style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault, color: ColorResources.titleColor(context))),
@@ -840,7 +905,6 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
 
 
-
                                   if ((!_update && resProvider.pickedLogo == null) || (_update && (resProvider.pickedLogo == null  && (widget.product?.thumbnailFullUrl?.path == null || widget.product?.thumbnailFullUrl?.path == ''))) ) {
                                     showCustomSnackBarWidget(getTranslated('upload_thumbnail_image',context),context, sanckBarType: SnackBarType.warning);
                                   } else if(!_update && resProvider.attributeList![0].active && resProvider.attributeList![0].variants.isNotEmpty && isColorImageEmpty) {
@@ -910,6 +974,9 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                         }
                                       }
 
+                                      if(resProvider.pickedVideo != null){
+                                        await resProvider.addProductVideo(context, resProvider.video, route);
+                                      }
 
                                       if(resProvider.pickedLogo != null){
                                         await resProvider.addProductImage(context,resProvider.thumbnail, route, update: _update);
@@ -942,6 +1009,10 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
 
                                     }
                                     else{
+                                      if(resProvider.pickedVideo != null){
+                                        await resProvider.addProductVideo(context, resProvider.video, route);
+                                      }
+
                                       if(resProvider.pickedLogo != null){
                                         await resProvider.addProductImage(context, resProvider.thumbnail, route);
                                       }
@@ -967,7 +1038,7 @@ class AddProductSeoScreenState extends State<AddProductSeoScreen> {
                                   }
 
                                   if(_update) {
-                                    Provider.of<AddProductController>(Get.context!,listen: false).addProduct(Get.context!, _product!, _addProduct!, thumbnailImage, metaImage, !_update, tagList);
+                                    Provider.of<AddProductController>(Get.context!,listen: false).addProduct(Get.context!, _product!, _addProduct!, thumbnailImage, metaImage, videoPath, videoStorage, !_update, tagList);
                                   }
 
                                 },
